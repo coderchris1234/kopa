@@ -730,7 +730,7 @@ input:checked + .slider:before {
   }
 
   .formCard {
-    padding: 32px 24px;
+    padding: 24px 16px;
   }
 
   .title {
@@ -744,6 +744,167 @@ input:checked + .slider:before {
   }
 
   .progressLine {
-    width: 32px;
+    width: 24px;
+  }
+
+  /* Step 3: Support Levels - Mobile */
+  .tierItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .tierEmoji {
+    font-size: 20px;
+    align-self: flex-start;
+  }
+
+  .tierInfo {
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .tierTitle {
+    width: 100%;
+  }
+
+  .tierAmount {
+    width: 100%;
+    text-align: left;
+  }
+
+  .toggleOption {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .switch {
+    align-self: flex-end;
+  }
+
+  /* Live Preview - Mobile */
+  .livePreviewSection {
+    margin-top: 20px;
+  }
+
+  .previewCard {
+    padding: 16px;
+  }
+
+  .previewHeader {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .previewAvatar {
+    width: 56px;
+    height: 56px;
+    font-size: 24px;
+  }
+
+  .previewName {
+    font-size: 15px;
+  }
+
+  .previewDescription {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .previewTiers {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .previewTier {
+    padding: 10px;
+    flex-wrap: wrap;
+  }
+
+  .previewTierLeft {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .previewTierEmoji {
+    font-size: 14px;
+  }
+
+  .previewTierTitle {
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .previewTierAmount {
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .previewSupportButton {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  /* Navigation Buttons - Mobile */
+  .navigationButtons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .backButton,
+  .navigationButtons .continueButton {
+    width: 100%;
+  }
+
+  /* Completion Section - Mobile */
+  .completionSection {
+    padding: 40px 16px 32px;
+  }
+
+  .completionIcon svg {
+    width: 64px;
+    height: 64px;
+  }
+
+  .completionTitle {
+    font-size: 24px;
+  }
+
+  .completionDescription {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 375px) {
+  .formCard {
+    padding: 20px 12px;
+  }
+
+  .progressStep {
+    width: 20px;
+    height: 20px;
+    font-size: 11px;
+  }
+
+  .progressLine {
+    width: 20px;
+  }
+
+  .tierEmoji {
+    font-size: 18px;
+  }
+
+  .previewAvatar {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
   }
 }
