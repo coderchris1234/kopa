@@ -1,5 +1,7 @@
 /* Global Styles */
 @import './variables.css';
+@import './responsive.css';
+@import './animations.css';
 
 * {
   margin: 0;
@@ -11,6 +13,10 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  /* Prevent font size adjustment on mobile */
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -19,6 +25,10 @@ body {
   line-height: var(--leading-normal);
   color: var(--text-primary);
   background-color: var(--bg-primary);
+  /* Prevent horizontal scroll on mobile */
+  overflow-x: hidden;
+  /* Improve touch scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Typography Base */
@@ -40,10 +50,26 @@ a {
 button {
   font-family: inherit;
   cursor: pointer;
+  /* Improve tap targets on mobile */
+  -webkit-tap-highlight-color: transparent;
+  /* Remove iOS button styling */
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 input, textarea, select {
   font-family: inherit;
+  /* Remove iOS styling */
+  -webkit-appearance: none;
+  appearance: none;
+  /* Prevent zoom on focus in iOS */
+  font-size: 16px;
+}
+
+@media (min-width: 768px) {
+  input, textarea, select {
+    font-size: var(--text-base);
+  }
 }
 
 /* Focus styles */
@@ -103,4 +129,41 @@ input, textarea, select {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+/* Mobile-specific utilities */
+@media (max-width: 640px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 641px) {
+  .show-mobile-only {
+    display: none !important;
+  }
+}
+
+/* Touch-friendly minimum tap target size */
+.tap-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Prevent text selection on interactive elements */
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
 }

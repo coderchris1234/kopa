@@ -1,0 +1,333 @@
+.page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #FFF5EB 0%, #FFE5CC 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+
+.container {
+  max-width: 560px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Success Animation */
+.successIcon {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto var(--space-6);
+  background: linear-gradient(135deg, var(--brand-accent), #FF8C00);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 20px 40px rgba(255, 107, 0, 0.3);
+  animation: successPulse 0.6s ease-out;
+}
+
+@keyframes successPulse {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.checkmark {
+  animation: checkmarkDraw 0.4s ease-in 0.2s both;
+}
+
+@keyframes checkmarkDraw {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Message */
+.title {
+  font-size: var(--text-4xl);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+  letter-spacing: -0.02em;
+  animation: fadeInUp 0.5s ease-out 0.3s both;
+}
+
+.message {
+  font-size: var(--text-xl);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--space-8);
+  animation: fadeInUp 0.5s ease-out 0.4s both;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.creatorName {
+  color: var(--brand-accent);
+  font-weight: var(--font-semibold);
+}
+
+/* Details Card */
+.detailsCard {
+  background-color: white;
+  border-radius: var(--radius-2xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-lg);
+  margin-bottom: var(--space-6);
+  animation: fadeInUp 0.5s ease-out 0.5s both;
+}
+
+.detailsTitle {
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-4);
+}
+
+.detailsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.detailRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.detailLabel {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.detailValue {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  color: var(--text-primary);
+  text-align: right;
+}
+
+.detailRow.amount {
+  padding-top: var(--space-4);
+  margin-top: var(--space-2);
+  border-top: 1px solid var(--border-light);
+  border-bottom: none;
+}
+
+.detailRow.amount .detailLabel {
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+}
+
+.detailRow.amount .detailValue {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--brand-accent);
+}
+
+.transactionId {
+  font-family: 'Courier New', monospace;
+  font-size: var(--text-xs);
+}
+
+/* Message Display */
+.messageBox {
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  text-align: left;
+}
+
+.messageBoxLabel {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-2);
+}
+
+.messageBoxText {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  animation: fadeInUp 0.5s ease-out 0.6s both;
+}
+
+.primaryButton {
+  width: 100%;
+  padding: var(--space-4);
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: white;
+  background: linear-gradient(135deg, var(--brand-accent), #FF8C00);
+  border: none;
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-md);
+}
+
+.primaryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.primaryButton:active {
+  transform: translateY(0);
+}
+
+.secondaryButton {
+  width: 100%;
+  padding: var(--space-4);
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  color: var(--text-secondary);
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.secondaryButton:hover {
+  border-color: var(--brand-accent);
+  color: var(--brand-accent);
+  background-color: var(--brand-light);
+}
+
+/* Share Section */
+.shareSection {
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid rgba(255, 107, 0, 0.2);
+  animation: fadeInUp 0.5s ease-out 0.7s both;
+}
+
+.shareTitle {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+.shareButtons {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.shareButton {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.shareButton:hover {
+  background-color: var(--brand-accent);
+  border-color: var(--brand-accent);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Receipt Link */
+.receiptLink {
+  margin-top: var(--space-6);
+  animation: fadeInUp 0.5s ease-out 0.8s both;
+}
+
+.receiptButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-tertiary);
+  font-size: var(--text-sm);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+  padding: var(--space-2);
+}
+
+.receiptButton:hover {
+  color: var(--text-primary);
+}
+
+/* Responsive Design */
+@media (min-width: 640px) {
+  .title {
+    font-size: var(--text-5xl);
+  }
+
+  .message {
+    font-size: var(--text-2xl);
+  }
+
+  .detailsCard {
+    padding: var(--space-8);
+  }
+
+  .actions {
+    flex-direction: row;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    flex: 1;
+  }
+}
+
+@media (min-width: 768px) {
+  .successIcon {
+    width: 140px;
+    height: 140px;
+  }
+}

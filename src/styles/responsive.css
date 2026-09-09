@@ -1,0 +1,341 @@
+/* Responsive Design and Mobile Optimizations */
+
+/* 
+ * Breakpoints:
+ * - Mobile: < 640px
+ * - Tablet: 640px - 1024px  
+ * - Desktop: > 1024px
+ */
+
+/* Mobile-First Typography Scaling */
+@media (max-width: 640px) {
+  :root {
+    /* Slightly reduce spacing on mobile */
+    --space-scale: 0.9;
+  }
+  
+  /* Ensure readable text on small screens */
+  body {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  /* Scale down large headings */
+  h1 {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+  }
+  
+  h2 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+  }
+  
+  h3 {
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
+  }
+}
+
+/* Touch Target Optimization */
+@media (max-width: 640px) {
+  /* Ensure all interactive elements meet 44px minimum */
+  button,
+  a[role="button"],
+  input[type="button"],
+  input[type="submit"],
+  input[type="checkbox"],
+  input[type="radio"] {
+    min-height: 44px;
+  }
+  
+  /* Make links in text blocks easier to tap */
+  p a,
+  li a {
+    padding: 2px 4px;
+    margin: -2px -4px;
+  }
+}
+
+/* Form Input Optimization for Mobile */
+@media (max-width: 640px) {
+  input,
+  textarea,
+  select {
+    /* Prevent zoom on focus */
+    font-size: 16px !important;
+    /* Add comfortable padding */
+    padding: 12px 16px;
+  }
+  
+  /* Stack form labels and inputs on mobile */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+/* Modal and Overlay Optimizations */
+@media (max-width: 640px) {
+  /* Full-screen modals on mobile */
+  [role="dialog"],
+  .modal {
+    position: fixed;
+    inset: 0;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    margin: 0;
+  }
+  
+  /* Bottom sheet style for mobile-friendly modals */
+  .modal.bottom-sheet {
+    top: auto;
+    border-radius: 16px 16px 0 0;
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Navigation Optimizations */
+@media (max-width: 640px) {
+  /* Sticky bottom navigation for mobile */
+  .mobile-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background-color: var(--surface);
+    border-top: 1px solid var(--border);
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  
+  /* Hamburger menu spacing */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    background-color: var(--surface);
+    z-index: 100;
+    overflow-y: auto;
+    padding-top: env(safe-area-inset-top, 0);
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+}
+
+/* Table Responsiveness */
+@media (max-width: 768px) {
+  /* Stack table cells vertically on mobile */
+  table.responsive-table {
+    display: block;
+  }
+  
+  table.responsive-table thead {
+    display: none;
+  }
+  
+  table.responsive-table tbody,
+  table.responsive-table tr,
+  table.responsive-table td {
+    display: block;
+  }
+  
+  table.responsive-table tr {
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+  }
+  
+  table.responsive-table td {
+    text-align: right;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+  
+  table.responsive-table td:last-child {
+    border-bottom: none;
+  }
+  
+  table.responsive-table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+}
+
+/* Grid Layout Optimization */
+@media (max-width: 640px) {
+  /* Single column grids on mobile */
+  .grid-auto,
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Two columns on tablet */
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Card Layouts */
+@media (max-width: 640px) {
+  .card {
+    border-radius: 12px;
+    padding: 16px;
+  }
+  
+  /* Remove shadows on mobile for performance */
+  .card.no-mobile-shadow {
+    box-shadow: none;
+    border: 1px solid var(--border);
+  }
+}
+
+/* Image Optimization */
+img {
+  max-width: 100%;
+  height: auto;
+  /* Improve image rendering */
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* Lazy loading optimization */
+img[loading="lazy"] {
+  content-visibility: auto;
+}
+
+/* Horizontal Scroll Containers */
+.scroll-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* Snap scrolling for carousels */
+.scroll-snap {
+  scroll-snap-type: x mandatory;
+  scroll-padding: 16px;
+}
+
+.scroll-snap > * {
+  scroll-snap-align: start;
+}
+
+/* Performance Optimizations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Dark mode optimization (if implementing) */
+@media (prefers-color-scheme: dark) {
+  /* Dark mode styles would go here */
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  * {
+    border-color: currentColor;
+  }
+  
+  button,
+  a {
+    text-decoration: underline;
+  }
+}
+
+/* Focus visible for keyboard navigation */
+@media (hover: hover) and (pointer: fine) {
+  /* Only show focus outlines for keyboard users on devices with mice */
+  *:focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  
+  .no-print,
+  nav,
+  button,
+  .sidebar {
+    display: none !important;
+  }
+  
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (max-width: 640px) and (orientation: landscape) {
+  /* Reduce vertical spacing in landscape */
+  .page-header {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  
+  /* Make modals scrollable in landscape */
+  [role="dialog"] {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}
+
+/* iOS PWA specific adjustments */
+@supports (-webkit-touch-callout: none) {
+  /* iOS-specific styles */
+  body {
+    /* Prevent bounce scroll */
+    position: fixed;
+    width: 100%;
+  }
+  
+  .scroll-content {
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Notch and safe area support */
+@supports (padding: max(0px)) {
+  .safe-padding {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+  
+  .safe-padding-top {
+    padding-top: max(16px, env(safe-area-inset-top));
+  }
+  
+  .safe-padding-bottom {
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+}

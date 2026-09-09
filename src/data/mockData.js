@@ -439,22 +439,27 @@ export const conversionFunnel = {
 };
 
 /**
- * Sample creator for public page
+ * Public creator page data (what supporters see)
  */
-export const samplePublicCreator = {
+export const mockPublicCreator = {
   username: 'christobel',
   name: 'Christobel Nwachukwu',
   profileImage: null,
   bio: 'Founder, builder, and creator sharing ideas and building products for Africa.',
-  socialLinks: {
-    instagram: 'https://instagram.com/christobel',
-    tiktok: 'https://tiktok.com/@christobel',
-    x: 'https://x.com/christobel'
-  },
+  socialLinks: [
+    { platform: 'instagram', url: 'https://instagram.com/christobel' },
+    { platform: 'tiktok', url: 'https://tiktok.com/@christobel' },
+    { platform: 'x', url: 'https://x.com/christobel' },
+    { platform: 'youtube', url: null },
+    { platform: 'website', url: null }
+  ],
   supportTiers: [
     { id: 't1', title: 'Buy me a coffee', amount: 500, description: null },
     { id: 't2', title: 'Support my work', amount: 2000, description: null },
     { id: 't3', title: 'Super Supporter', amount: 5000, description: null }
   ],
-  allowCustomAmount: true
+  allowCustomAmount: true,
+  totalSupporters: 74,
+  totalEarnings: 384000,
+  isActive: true
 };

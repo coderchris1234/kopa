@@ -2,23 +2,21 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
 import { FcGoogle } from 'react-icons/fc';
-import { HiUserAdd } from 'react-icons/hi';
+import { IoLogIn } from 'react-icons/io5';
 import { useAuth } from '../hooks';
-import { isValidEmail, validatePassword } from '../utils';
-import styles from './SignupPage.module.css';
+import { isValidEmail } from '../utils';
+import styles from './LoginPage.module.css';
 
-export default function SignupPage() {
+export default function LoginPage() {
   const navigate = useNavigate();
-  const { signup } = useAuth();
+  const { login } = useAuth();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
-    confirmPassword: ''
+    password: ''
   });
 
   const handleChange = (e) => {
@@ -38,13 +36,8 @@ export default function SignupPage() {
       newErrors.email = 'Please enter a valid email address';
     }
 
-    const passwordValidation = validatePassword(formData.password);
-    if (!passwordValidation.isValid) {
-      newErrors.password = passwordValidation.message;
-    }
-
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
+    if (!formData.password) {
+      newErrors.password = 'Password is required';
     }
 
     setErrors(newErrors);
@@ -57,18 +50,18 @@ export default function SignupPage() {
 
     setLoading(true);
     try {
-      await signup('', formData.email, formData.password);
-      navigate('/onboarding');
+      await login(formData.email, formData.password);
+      navigate('/dashboard');
     } catch (error) {
-      setErrors({ submit: 'Failed to create account. Please try again.' });
+      setErrors({ submit: 'Invalid email or password. Please try again.' });
     } finally {
       setLoading(false);
     }
   };
 
-  const handleGoogleSignup = () => {
+  const handleGoogleLogin = () => {
     // Google OAuth logic here
-    console.log('Google signup');
+    console.log('Google login');
   };
 
   return (
@@ -79,7 +72,7 @@ export default function SignupPage() {
           <img src="/logo.png" alt="KOPA" className={styles.logo} />
           <span className={styles.logoText}>KOPA</span>
         </div>
-        <img src="/create-image.jpg" alt="Creator" className={styles.heroImage} />
+        <img src="/login-image.jpg" alt="Welcome back" className={styles.heroImage} />
       </div>
 
       {/* Right Side - Form */}
@@ -87,10 +80,10 @@ export default function SignupPage() {
         <div className={styles.formContainer}>
           <div className={styles.formHeader}>
             <div className={styles.iconWrapper}>
-              <HiUserAdd className={styles.formIcon} />
+              <IoLogIn className={styles.formIcon} />
             </div>
-            <h1 className={styles.title}>Create your account</h1>
-            <p className={styles.subtitle}>Sign up to get started</p>
+            <h1 className={styles.title}>Welcome back</h1>
+            <p className={styles.subtitle}>Log in to your account</p>
           </div>
 
           <form onSubmit={handleSubmit} className={styles.form}>
@@ -138,32 +131,6 @@ export default function SignupPage() {
               {errors.password && <span className={styles.error}>{errors.password}</span>}
             </div>
 
-            <div className={styles.inputGroup}>
-              <label htmlFor="confirmPassword" className={styles.label}>Confirm Password</label>
-              <div className={styles.inputWrapper}>
-                <input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type={showConfirmPassword ? 'text' : 'password'}
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  placeholder="••••••••"
-                  className={styles.input}
-                  disabled={loading}
-                  required
-                />
-                <button
-                  type="button"
-                  className={styles.eyeButton}
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  tabIndex={-1}
-                >
-                  {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                </button>
-              </div>
-              {errors.confirmPassword && <span className={styles.error}>{errors.confirmPassword}</span>}
-            </div>
-
             {errors.submit && (
               <div className={styles.submitError}>{errors.submit}</div>
             )}
@@ -173,7 +140,7 @@ export default function SignupPage() {
               className={styles.submitButton}
               disabled={loading}
             >
-              {loading ? 'Creating account...' : 'Create account'}
+              {loading ? 'Signing in...' : 'Log in'}
             </button>
 
             <div className={styles.divider}>
@@ -183,7 +150,7 @@ export default function SignupPage() {
             <button
               type="button"
               className={styles.googleButton}
-              onClick={handleGoogleSignup}
+              onClick={handleGoogleLogin}
               disabled={loading}
             >
               <FcGoogle size={20} />
@@ -192,8 +159,8 @@ export default function SignupPage() {
           </form>
 
           <p className={styles.footer}>
-            Already have an account?{' '}
-            <Link to="/login" className={styles.link}>Log in</Link>
+            Don't have an account?{' '}
+            <Link to="/signup" className={styles.link}>Create one</Link>
           </p>
         </div>
       </div>
