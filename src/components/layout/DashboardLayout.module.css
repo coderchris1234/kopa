@@ -112,16 +112,16 @@
   padding: 9px 12px;
   font-size: 12px;
   font-weight: 500;
-  color: #2563EB;
+  color: var(--brand-accent);
   text-decoration: none;
   border-radius: 8px;
   transition: all 0.15s ease;
   margin-bottom: 10px;
-  background-color: #EFF6FF;
+  background-color: var(--brand-accent-light);
 }
 
 .viewPageLink:hover {
-  background-color: #DBEAFE;
+  background-color: var(--brand-accent-lighter);
 }
 
 .userSection {
@@ -143,8 +143,8 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #EFF6FF;
-  color: #2563EB;
+  background: var(--brand-accent-light);
+  color: var(--brand-accent);
   display: flex;
   align-items: center;
   justify-content: center;

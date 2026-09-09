@@ -5,6 +5,12 @@
   --brand-primary: #0F172A;
   --brand-accent: #2563EB;
   --brand-accent-hover: #1D4ED8;
+  --brand-accent-light: #EFF6FF;
+  --brand-accent-lighter: #DBEAFE;
+  
+  /* Section Backgrounds */
+  --section-light: #F8FAFC;
+  --section-blue-tint: #F8FBFFCF;
   
   /* Neutrals */
   --gray-50: #F8FAFC;

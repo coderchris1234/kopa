@@ -29,7 +29,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 32px;
-  background-color: #FAFBFC;
+  background-color: var(--gray-50);
   border-radius: 12px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
@@ -50,7 +50,7 @@
 .logoText {
   font-size: 18px;
   font-weight: 600;
-  color: #2563EB;
+  color: var(--brand-accent);
   letter-spacing: -0.01em;
 }
 
@@ -125,7 +125,7 @@
   font-size: 14px;
   font-weight: 500;
   color: #ffffff;
-  background: #2563EB;
+  background: var(--brand-accent);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -134,7 +134,7 @@
 }
 
 .getStartedButton:hover {
-  background: #1d4ed8;
+  background: var(--brand-accent-hover);
 }
 
 /* Mobile Menu Button */
@@ -217,7 +217,7 @@
   font-size: 16px;
   font-weight: 500;
   color: #ffffff;
-  background: #2563EB;
+  background: var(--brand-accent);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -226,7 +226,7 @@
 }
 
 .mobileGetStartedButton:hover {
-  background: #1d4ed8;
+  background: var(--brand-accent-hover);
 }
 
 .mobileThemeToggle {
@@ -296,7 +296,7 @@
 }
 
 .highlight {
-  color: #2563EB;
+  color: var(--brand-accent);
 }
 
 .heroDescription {
@@ -317,7 +317,7 @@
   font-size: 16px;
   font-weight: 600;
   color: #ffffff;
-  background: #2563EB;
+  background: var(--brand-accent);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -325,7 +325,7 @@
 }
 
 .primaryButton:hover {
-  background: #1d4ed8;
+  background: var(--brand-accent-hover);
   transform: translateY(-1px);
 }
 
@@ -424,7 +424,7 @@
   justify-content: center;
   width: 16px;
   height: 16px;
-  background: #2563EB;
+  background: var(--brand-accent);
   color: #FFFFFF;
   border-radius: 50%;
   font-size: 10px;
@@ -478,7 +478,7 @@
 .supportButton {
   width: 100%;
   padding: 14px;
-  background: #2563EB;
+  background: var(--brand-accent);
   color: #FFFFFF;
   font-size: 15px;
   font-weight: 600;
@@ -493,7 +493,7 @@
 }
 
 .supportButton:hover {
-  background: #1d4ed8;
+  background: var(--brand-accent-hover);
   transform: translateY(-1px);
 }
 
@@ -572,7 +572,7 @@
 
 /* How It Works Section */
 .howItWorks {
-  background-color: #F8FAFC;
+  background-color: var(--section-light);
   padding: 80px 32px;
 }
 
@@ -598,6 +598,12 @@
   font-size: 16px;
   color: var(--text-secondary);
   font-weight: 400;
+}
+
+/* Dark mode: Keep headings dark for visibility on light background */
+:global(.dark) .howItWorks .sectionTitle,
+:global(.dark) .howItWorks .sectionSubtitle {
+  color: var(--brand-primary);
 }
 
 .stepsGrid {
@@ -663,7 +669,7 @@
 /* Why KOPA Section */
 .whyKopa {
   padding: 80px 32px;
-  background: #F8FBFFCF;
+  background: var(--section-blue-tint);
 }
 
 .whyKopaHeader {
@@ -682,6 +688,16 @@
 .whyKopaSubtitle {
   font-size: 16px;
   color: var(--text-secondary);
+}
+
+/* Dark mode: Keep headings dark for visibility on light background */
+:global(.dark) .whyKopa .whyKopaTitle,
+:global(.dark) .whyKopa .whyKopaSubtitle {
+  color: var(--brand-primary);
+}
+
+:global(.dark) .whyKopa .platformBadge {
+  color: var(--brand-primary);
 }
 
 .whyKopaGrid {
@@ -767,7 +783,7 @@
 }
 
 .analyticsLabel {
-  color: #2563EB;
+  color: var(--brand-accent);
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 16px;
@@ -942,7 +958,7 @@
   gap: 8px;
   padding: 12px 28px;
   background: #FFFFFF;
-  color: #2563EB;
+  color: var(--brand-accent);
   font-size: 16px;
   font-weight: 600;
   border: none;
