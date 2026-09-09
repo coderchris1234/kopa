@@ -12,13 +12,13 @@
 
 /* Header/Navigation */
 .header {
-  border-bottom: 1px solid var(--border);
-  background-color: var(--surface);
   position: sticky;
   top: 0;
   z-index: 50;
   transition: all 0.3s ease;
   width: 100%;
+  background-color: transparent;
+  padding: 16px 32px;
 }
 
 .nav {
@@ -29,6 +29,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 32px;
+  background-color: #FAFBFC;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .logoContainer {
@@ -366,7 +369,7 @@
 /* Support Card Overlay */
 .supportCard {
   position: absolute;
-  bottom: -30px;
+  bottom: -90px;
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
@@ -569,7 +572,7 @@
 
 /* How It Works Section */
 .howItWorks {
-  background-color: var(--bg-secondary);
+  background-color: #F8FAFC;
   padding: 80px 32px;
 }
 
@@ -660,7 +663,7 @@
 /* Why KOPA Section */
 .whyKopa {
   padding: 80px 32px;
-  background: var(--bg-primary);
+  background: #F8FBFFCF;
 }
 
 .whyKopaHeader {
@@ -730,7 +733,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 24px;
   flex-wrap: wrap;
 }
 
@@ -738,10 +741,9 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: 20px;
+  padding: 0;
+  background: transparent;
+  border: none;
   font-size: 14px;
   color: var(--text-secondary);
   font-weight: 500;
@@ -749,7 +751,7 @@
 
 /* Analytics Section */
 .analyticsSection {
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-primary);
   padding: 80px 32px;
 }
 
@@ -883,8 +885,8 @@
 .finalCta::after {
   content: '';
   position: absolute;
-  width: 250px;
-  height: 250px;
+  width: 300px;
+  height: 300px;
   background-image: url('/logo.png');
   background-size: contain;
   background-repeat: no-repeat;
@@ -895,14 +897,14 @@
 
 .finalCta::before {
   top: 50%;
-  left: 0;
-  transform: translateY(-50%);
+  left: -150px;
+  transform: translateY(-50%) rotate(-15deg);
 }
 
 .finalCta::after {
   top: 50%;
-  right: 0;
-  transform: translateY(-50%);
+  right: -150px;
+  transform: translateY(-50%) rotate(15deg);
 }
 
 .ctaContainer {

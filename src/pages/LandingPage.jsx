@@ -171,7 +171,7 @@ export default function LandingPage() {
       </section>
 
       {/* How It Works Section */}
-      <section className={styles.howItWorks}>
+      <section className={styles.howItWorks} id="how-it-works">
         <div className={styles.sectionContainer}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>How It Works</h2>
@@ -228,81 +228,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Why KOPA Section */}
-      <section className={styles.whyKopa}>
-        <div className={styles.sectionContainer}>
-          <div className={styles.whyKopaHeader}>
-            <h2 className={styles.whyKopaTitle}>Why KOPA</h2>
-            <p className={styles.whyKopaSubtitle}>
-              Everything you need to turn attention into support.
-            </p>
-          </div>
-
-          <div className={styles.whyKopaGrid}>
-            <div className={styles.whyKopaCard}>
-              <div className={styles.whyKopaIcon}>
-                <FiLink size={24} />
-              </div>
-              <h3 className={styles.whyKopaCardTitle}>Personalised link</h3>
-              <p className={styles.whyKopaCardDescription}>
-                Special links for each platform. Share it on your bio, stories, or DMs.
-              </p>
-            </div>
-
-            <div className={styles.whyKopaCard}>
-              <div className={styles.whyKopaIcon}>
-                <IoWalletOutline size={24} />
-              </div>
-              <h3 className={styles.whyKopaCardTitle}>Flexible support amounts</h3>
-              <p className={styles.whyKopaCardDescription}>
-                Let supporters choose a tier or set a custom amount that feels right.
-              </p>
-            </div>
-
-            <div className={styles.whyKopaCard}>
-              <div className={styles.whyKopaIcon}>
-                <MdOutlineLocalAtm size={24} />
-              </div>
-              <h3 className={styles.whyKopaCardTitle}>Local payment options</h3>
-              <p className={styles.whyKopaCardDescription}>
-                Payments that works for your audience; card, transfer, and mobile money. 🇳🇬
-              </p>
-            </div>
-
-            <div className={styles.whyKopaCard}>
-              <div className={styles.whyKopaIcon}>
-                <HiOutlineChartBar size={24} />
-              </div>
-              <h3 className={styles.whyKopaCardTitle}>Audience insights</h3>
-              <p className={styles.whyKopaCardDescription}>
-                Know which platform converts best and double down on what works.
-              </p>
-            </div>
-          </div>
-
-          <div className={styles.platformBadges}>
-            <div className={styles.platformBadge}>
-              <FaInstagram size={16} style={{ color: '#E4405F' }} />
-              <span>Instagram</span>
-            </div>
-            <div className={styles.platformBadge}>
-              <FaWhatsapp size={16} style={{ color: '#25D366' }} />
-              <span>WhatsApp</span>
-            </div>
-            <div className={styles.platformBadge}>
-              <FaTiktok size={16} style={{ color: '#000000' }} />
-              <span>TikTok</span>
-            </div>
-            <div className={styles.platformBadge}>
-              <FaYoutube size={16} style={{ color: '#FF0000' }} />
-              <span>YouTube</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Analytics Section */}
-      <section className={styles.analyticsSection}>
+      <section className={styles.analyticsSection} id="analytics">
         <div className={styles.sectionContainer}>
           <div className={styles.analyticsLayout}>
             {/* Left Content */}
@@ -389,6 +316,79 @@ export default function LandingPage() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why KOPA Section */}
+      <section className={styles.whyKopa} id="features">
+        <div className={styles.sectionContainer}>
+          <div className={styles.whyKopaHeader}>
+            <h2 className={styles.whyKopaTitle}>Why KOPA</h2>
+            <p className={styles.whyKopaSubtitle}>
+              Everything you need to turn attention into support.
+            </p>
+          </div>
+
+          <div className={styles.whyKopaGrid}>
+            <div className={styles.whyKopaCard}>
+              <div className={styles.whyKopaIcon}>
+                <FiLink size={24} />
+              </div>
+              <h3 className={styles.whyKopaCardTitle}>Personalised link</h3>
+              <p className={styles.whyKopaCardDescription}>
+                Special links for each platform. Share it on your bio, stories, or DMs.
+              </p>
+            </div>
+
+            <div className={styles.whyKopaCard}>
+              <div className={styles.whyKopaIcon}>
+                <IoWalletOutline size={24} />
+              </div>
+              <h3 className={styles.whyKopaCardTitle}>Flexible support amounts</h3>
+              <p className={styles.whyKopaCardDescription}>
+                Let supporters choose a tier or set a custom amount that feels right.
+              </p>
+            </div>
+
+            <div className={styles.whyKopaCard}>
+              <div className={styles.whyKopaIcon}>
+                <MdOutlineLocalAtm size={24} />
+              </div>
+              <h3 className={styles.whyKopaCardTitle}>Local payment options</h3>
+              <p className={styles.whyKopaCardDescription}>
+                Payments that works for your audience; card, transfer, and mobile money. 🇳🇬
+              </p>
+            </div>
+
+            <div className={styles.whyKopaCard}>
+              <div className={styles.whyKopaIcon}>
+                <HiOutlineChartBar size={24} />
+              </div>
+              <h3 className={styles.whyKopaCardTitle}>Audience insights</h3>
+              <p className={styles.whyKopaCardDescription}>
+                Know which platform converts best and double down on what works.
+              </p>
+            </div>
+          </div>
+
+          <div className={styles.platformBadges}>
+            <div className={styles.platformBadge}>
+              <FaInstagram size={16} style={{ color: '#E4405F' }} />
+              <span>Instagram</span>
+            </div>
+            <div className={styles.platformBadge}>
+              <FaWhatsapp size={16} style={{ color: '#25D366' }} />
+              <span>WhatsApp</span>
+            </div>
+            <div className={styles.platformBadge}>
+              <FaTiktok size={16} style={{ color: '#000000' }} />
+              <span>TikTok</span>
+            </div>
+            <div className={styles.platformBadge}>
+              <FaYoutube size={16} style={{ color: '#FF0000' }} />
+              <span>YouTube</span>
             </div>
           </div>
         </div>
