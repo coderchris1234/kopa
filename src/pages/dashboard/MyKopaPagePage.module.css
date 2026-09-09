@@ -76,7 +76,7 @@
   color: var(--text-primary);
   font-family: var(--font-mono);
   margin-bottom: var(--space-4);
-  word-break: break-all);
+  word-break: break-all;
 }
 
 .linkActions {
