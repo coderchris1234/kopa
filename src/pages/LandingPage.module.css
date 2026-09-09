@@ -3,15 +3,17 @@
 .page {
   min-height: 100vh;
   background-color: var(--bg-primary);
+  transition: background-color 0.3s ease;
 }
 
 /* Header/Navigation */
 .header {
-  border-bottom: 1px solid #e5e7eb;
-  background-color: #ffffff;
+  border-bottom: 1px solid var(--border);
+  background-color: var(--surface);
   position: sticky;
   top: 0;
   z-index: 50;
+  transition: all 0.3s ease;
 }
 
 .nav {
@@ -54,14 +56,14 @@
 .navLink {
   font-size: 14px;
   font-weight: 500;
-  color: #374151;
+  color: var(--text-secondary);
   text-decoration: none;
   transition: color 0.15s ease;
   white-space: nowrap;
 }
 
 .navLink:hover {
-  color: #111827;
+  color: var(--text-primary);
 }
 
 .navActions {
@@ -71,11 +73,31 @@
   flex-shrink: 0;
 }
 
+.themeToggle {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.themeToggle:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--gray-300);
+}
+
 .signInButton {
   padding: 8px 16px;
   font-size: 14px;
   font-weight: 500;
-  color: #374151;
+  color: var(--text-secondary);
   background: transparent;
   border: none;
   border-radius: 6px;
@@ -85,8 +107,8 @@
 }
 
 .signInButton:hover {
-  background-color: #f3f4f6;
-  color: #111827;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .getStartedButton {
@@ -111,7 +133,7 @@
   display: none;
   background: none;
   border: none;
-  color: #374151;
+  color: var(--text-secondary);
   cursor: pointer;
   padding: 8px;
   border-radius: 6px;
@@ -119,14 +141,14 @@
 }
 
 .mobileMenuButton:hover {
-  background-color: #f3f4f6;
+  background-color: var(--bg-secondary);
 }
 
 /* Mobile Menu */
 .mobileMenu {
   display: none;
-  border-top: 1px solid #E5E7EB;
-  background: #FFFFFF;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
   padding: 16px 32px 24px;
 }
 
@@ -141,15 +163,15 @@
   padding: 12px 16px;
   font-size: 16px;
   font-weight: 500;
-  color: #374151;
+  color: var(--text-secondary);
   text-decoration: none;
   border-radius: 8px;
   transition: all 0.15s ease;
 }
 
 .mobileMenuLink:hover {
-  background-color: #F9FAFB;
-  color: #111827;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .mobileMenuActions {
@@ -157,16 +179,16 @@
   flex-direction: column;
   gap: 12px;
   padding-top: 16px;
-  border-top: 1px solid #E5E7EB;
+  border-top: 1px solid var(--border);
 }
 
 .mobileSignInButton {
   padding: 12px 16px;
   font-size: 16px;
   font-weight: 500;
-  color: #374151;
+  color: var(--text-secondary);
   background: transparent;
-  border: 1px solid #D1D5DB;
+  border: 1px solid var(--border);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -174,8 +196,8 @@
 }
 
 .mobileSignInButton:hover {
-  background-color: #F9FAFB;
-  border-color: #9CA3AF;
+  background-color: var(--bg-secondary);
+  border-color: var(--gray-300);
 }
 
 .mobileGetStartedButton {
@@ -193,6 +215,29 @@
 
 .mobileGetStartedButton:hover {
   background: #1d4ed8;
+}
+
+.mobileThemeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  width: 100%;
+}
+
+.mobileThemeToggle:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--gray-300);
 }
 
 /* Hero Section */
@@ -215,9 +260,9 @@
   align-items: center;
   gap: 6px;
   padding: 6px 12px;
-  background: #FFFFFF;
-  border: 1px solid #E5E7EB;
-  color: #374151;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
   font-size: 13px;
   font-weight: 500;
   border-radius: 20px;
@@ -233,7 +278,7 @@
   font-size: 56px;
   font-weight: 700;
   line-height: 1.1;
-  color: #111827;
+  color: var(--text-primary);
   margin-bottom: 24px;
   letter-spacing: -0.02em;
 }
@@ -245,7 +290,7 @@
 .heroDescription {
   font-size: 18px;
   line-height: 1.6;
-  color: #6B7280;
+  color: var(--text-secondary);
   margin-bottom: 32px;
 }
 
@@ -276,17 +321,17 @@
   padding: 12px 24px;
   font-size: 16px;
   font-weight: 600;
-  color: #374151;
+  color: var(--text-secondary);
   background: transparent;
-  border: 1px solid #D1D5DB;
+  border: 1px solid var(--border);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .secondaryButton:hover {
-  background: #F9FAFB;
-  border-color: #9CA3AF;
+  background: var(--bg-secondary);
+  border-color: var(--gray-400);
 }
 
 .heroVisual {
@@ -317,7 +362,7 @@
   transform: translateX(-50%);
   width: 90%;
   max-width: 380px;
-  background: #FFFFFF;
+  background: var(--surface);
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
@@ -357,7 +402,7 @@
   gap: 4px;
   font-size: 15px;
   font-weight: 600;
-  color: #111827;
+  color: var(--text-primary);
   margin-bottom: 2px;
 }
 
@@ -376,7 +421,7 @@
 
 .creatorHandle {
   font-size: 13px;
-  color: #6B7280;
+  color: var(--text-secondary);
 }
 
 .supportOptions {
@@ -387,8 +432,8 @@
 }
 
 .supportOption {
-  background: #F9FAFB;
-  border: 1px solid #E5E7EB;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 16px;
   text-align: center;
@@ -397,8 +442,8 @@
 }
 
 .supportOption:hover {
-  background: #F3F4F6;
-  border-color: #D1D5DB;
+  background: var(--bg-tertiary);
+  border-color: var(--border);
 }
 
 .optionIcon {
@@ -409,13 +454,13 @@
 .optionAmount {
   font-size: 16px;
   font-weight: 700;
-  color: #111827;
+  color: var(--text-primary);
   margin-bottom: 4px;
 }
 
 .optionLabel {
   font-size: 12px;
-  color: #6B7280;
+  color: var(--text-secondary);
 }
 
 .supportButton {
@@ -515,7 +560,7 @@
 
 /* How It Works Section */
 .howItWorks {
-  background-color: #F9FAFB;
+  background-color: var(--bg-secondary);
   padding: 80px 32px;
 }
 
@@ -532,14 +577,14 @@
 .sectionTitle {
   font-size: 36px;
   font-weight: 700;
-  color: #111827;
+  color: var(--text-primary);
   margin-bottom: 12px;
   letter-spacing: -0.02em;
 }
 
 .sectionSubtitle {
   font-size: 16px;
-  color: #6B7280;
+  color: var(--text-secondary);
   font-weight: 400;
 }
 
@@ -550,8 +595,8 @@
 }
 
 .stepCard {
-  background: #FFFFFF;
-  border: 1px solid #E5E7EB;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 24px;
   position: relative;
@@ -559,8 +604,8 @@
 }
 
 .stepCard:hover {
-  border-color: #D1D5DB;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border-color: var(--gray-300);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .stepIconWrapper {
@@ -593,20 +638,20 @@
 .stepTitle {
   font-size: 16px;
   font-weight: 600;
-  color: #111827;
+  color: var(--text-primary);
   margin-bottom: 8px;
 }
 
 .stepDescription {
   font-size: 14px;
-  color: #6B7280;
+  color: var(--text-secondary);
   line-height: 1.6;
 }
 
 /* Why KOPA Section */
 .whyKopa {
   padding: 80px 32px;
-  background: #FFFFFF;
+  background: var(--bg-primary);
 }
 
 .whyKopaHeader {
@@ -617,14 +662,14 @@
 .whyKopaTitle {
   font-size: 32px;
   font-weight: 700;
-  color: #111827;
+  color: var(--text-primary);
   margin-bottom: 8px;
   letter-spacing: -0.02em;
 }
 
 .whyKopaSubtitle {
   font-size: 16px;
-  color: #6B7280;
+  color: var(--text-secondary);
 }
 
 .whyKopaGrid {
@@ -635,8 +680,8 @@
 }
 
 .whyKopaCard {
-  background: #FFFFFF;
-  border: 1px solid #E5E7EB;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 24px;
   transition: box-shadow 0.2s ease, transform 0.2s ease;
@@ -662,13 +707,13 @@
 .whyKopaCardTitle {
   font-size: 16px;
   font-weight: 600;
-  color: #111827;
+  color: var(--text-primary);
   margin-bottom: 8px;
 }
 
 .whyKopaCardDescription {
   font-size: 14px;
-  color: #6B7280;
+  color: var(--text-secondary);
   line-height: 1.6;
 }
 
@@ -685,17 +730,17 @@
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background: #F9FAFB;
-  border: 1px solid #E5E7EB;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
   border-radius: 20px;
   font-size: 14px;
-  color: #374151;
+  color: var(--text-secondary);
   font-weight: 500;
 }
 
 /* Analytics Section */
 .analyticsSection {
-  background-color: #F9FAFB;
+  background-color: var(--bg-secondary);
   padding: 80px 32px;
 }
 
@@ -721,7 +766,7 @@
 .analyticsTitle {
   font-size: 36px;
   font-weight: 700;
-  color: #111827;
+  color: var(--text-primary);
   line-height: 1.2;
   margin-bottom: 16px;
   letter-spacing: -0.02em;
@@ -729,7 +774,7 @@
 
 .analyticsDescription {
   font-size: 16px;
-  color: #6B7280;
+  color: var(--text-secondary);
   line-height: 1.6;
   margin-bottom: 32px;
 }
@@ -741,27 +786,27 @@
 }
 
 .statBox {
-  background: #FFFFFF;
-  border: 1px solid #E5E7EB;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 16px;
 }
 
 .statLabel {
   font-size: 13px;
-  color: #6B7280;
+  color: var(--text-secondary);
   margin-bottom: 8px;
 }
 
 .statValue {
   font-size: 24px;
   font-weight: 700;
-  color: #111827;
+  color: var(--text-primary);
 }
 
 .revenueCard {
-  background: #FFFFFF;
-  border: 1px solid #E5E7EB;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 24px;
 }
@@ -769,7 +814,7 @@
 .revenueTitle {
   font-size: 16px;
   font-weight: 600;
-  color: #111827;
+  color: var(--text-primary);
   margin-bottom: 24px;
 }
 
@@ -793,20 +838,20 @@
 
 .platformName {
   font-size: 14px;
-  color: #374151;
+  color: var(--text-secondary);
   font-weight: 500;
 }
 
 .platformAmount {
   font-size: 14px;
-  color: #111827;
+  color: var(--text-primary);
   font-weight: 600;
 }
 
 .platformBar {
   width: 100%;
   height: 8px;
-  background: #F3F4F6;
+  background: var(--bg-secondary);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -820,7 +865,7 @@
 /* Final CTA Section */
 .finalCta {
   padding: 100px 32px;
-  background: #F9FAFB;
+  background: var(--bg-secondary);
   position: relative;
   overflow: hidden;
 }

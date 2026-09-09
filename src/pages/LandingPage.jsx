@@ -9,13 +9,15 @@ import { IoWalletOutline } from 'react-icons/io5';
 import { MdOutlineLocalAtm } from 'react-icons/md';
 import { HiOutlineChartBar } from 'react-icons/hi';
 import { FaInstagram, FaWhatsapp, FaTiktok, FaYoutube } from 'react-icons/fa';
-import { ArrowRight, Menu, X } from 'lucide-react';
+import { ArrowRight, Menu, X, Sun, Moon } from 'lucide-react';
 import { Button } from '../components/ui';
 import { formatCurrency, formatNumber } from '../utils';
+import { useTheme } from '../contexts/ThemeContext';
 import styles from './LandingPage.module.css';
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <div className={styles.page}>
@@ -37,6 +39,13 @@ export default function LandingPage() {
           
           {/* Desktop Actions */}
           <div className={styles.navActions}>
+            <button 
+              className={styles.themeToggle}
+              onClick={toggleTheme}
+              aria-label="Toggle theme"
+            >
+              {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+            </button>
             <Link to="/login">
               <button className={styles.signInButton}>Sign in</button>
             </Link>
@@ -73,6 +82,22 @@ export default function LandingPage() {
               </a>
             </div>
             <div className={styles.mobileMenuActions}>
+              <button 
+                className={styles.mobileThemeToggle}
+                onClick={toggleTheme}
+              >
+                {theme === 'light' ? (
+                  <>
+                    <Moon size={18} />
+                    <span>Dark mode</span>
+                  </>
+                ) : (
+                  <>
+                    <Sun size={18} />
+                    <span>Light mode</span>
+                  </>
+                )}
+              </button>
               <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
                 <button className={styles.mobileSignInButton}>Sign in</button>
               </Link>
