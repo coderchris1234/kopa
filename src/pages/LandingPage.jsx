@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import { IoAdd } from 'react-icons/io5';
 import { HiLink } from 'react-icons/hi2';
 import { BsEmojiSmile } from 'react-icons/bs';
@@ -8,12 +9,14 @@ import { IoWalletOutline } from 'react-icons/io5';
 import { MdOutlineLocalAtm } from 'react-icons/md';
 import { HiOutlineChartBar } from 'react-icons/hi';
 import { FaInstagram, FaWhatsapp, FaTiktok, FaYoutube } from 'react-icons/fa';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Menu, X } from 'lucide-react';
 import { Button } from '../components/ui';
 import { formatCurrency, formatNumber } from '../utils';
 import styles from './LandingPage.module.css';
 
 export default function LandingPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div className={styles.page}>
       {/* Header/Navigation */}
@@ -23,12 +26,16 @@ export default function LandingPage() {
             <img src="/logo.png" alt="KOPA" className={styles.logoImage} />
             <span className={styles.logoText}>KOPA</span>
           </div>
+          
+          {/* Desktop Navigation */}
           <div className={styles.navLinks}>
             <a href="#how-it-works" className={styles.navLink}>How it works</a>
             <a href="#features" className={styles.navLink}>Features</a>
             <a href="#analytics" className={styles.navLink}>Analytics</a>
             <a href="#pricing" className={styles.navLink}>Pricing</a>
           </div>
+          
+          {/* Desktop Actions */}
           <div className={styles.navActions}>
             <Link to="/login">
               <button className={styles.signInButton}>Sign in</button>
@@ -37,7 +44,44 @@ export default function LandingPage() {
               <button className={styles.getStartedButton}>Get started</button>
             </Link>
           </div>
+
+          {/* Mobile Menu Button */}
+          <button 
+            className={styles.mobileMenuButton}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </nav>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className={styles.mobileMenu}>
+            <div className={styles.mobileMenuLinks}>
+              <a href="#how-it-works" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
+                How it works
+              </a>
+              <a href="#features" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
+                Features
+              </a>
+              <a href="#analytics" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
+                Analytics
+              </a>
+              <a href="#pricing" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
+                Pricing
+              </a>
+            </div>
+            <div className={styles.mobileMenuActions}>
+              <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
+                <button className={styles.mobileSignInButton}>Sign in</button>
+              </Link>
+              <Link to="/signup" onClick={() => setMobileMenuOpen(false)}>
+                <button className={styles.mobileGetStartedButton}>Get started</button>
+              </Link>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Hero Section */}

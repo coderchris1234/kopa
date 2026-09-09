@@ -106,6 +106,95 @@
   background: #1d4ed8;
 }
 
+/* Mobile Menu Button */
+.mobileMenuButton {
+  display: none;
+  background: none;
+  border: none;
+  color: #374151;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
+}
+
+.mobileMenuButton:hover {
+  background-color: #f3f4f6;
+}
+
+/* Mobile Menu */
+.mobileMenu {
+  display: none;
+  border-top: 1px solid #E5E7EB;
+  background: #FFFFFF;
+  padding: 16px 32px 24px;
+}
+
+.mobileMenuLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.mobileMenuLink {
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+}
+
+.mobileMenuLink:hover {
+  background-color: #F9FAFB;
+  color: #111827;
+}
+
+.mobileMenuActions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid #E5E7EB;
+}
+
+.mobileSignInButton {
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #374151;
+  background: transparent;
+  border: 1px solid #D1D5DB;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  width: 100%;
+}
+
+.mobileSignInButton:hover {
+  background-color: #F9FAFB;
+  border-color: #9CA3AF;
+}
+
+.mobileGetStartedButton {
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  background: #2563EB;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  width: 100%;
+}
+
+.mobileGetStartedButton:hover {
+  background: #1d4ed8;
+}
+
 /* Hero Section */
 .hero {
   max-width: 1280px;
@@ -994,6 +1083,14 @@
 
 /* Responsive Design */
 @media (max-width: 1024px) {
+  .nav {
+    padding: 16px 24px;
+  }
+
+  .navLinks {
+    gap: 24px;
+  }
+
   .hero {
     grid-template-columns: 1fr;
     gap: var(--space-8);
@@ -1018,9 +1115,46 @@
     grid-template-columns: 1fr;
     gap: var(--space-8);
   }
+
+  .whyKopaGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .analyticsLayout {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
 }
 
 @media (max-width: 768px) {
+  /* Hide desktop navigation and show mobile button */
+  .navLinks {
+    display: none;
+  }
+
+  .navActions {
+    display: none;
+  }
+
+  .mobileMenuButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobileMenu {
+    display: block;
+  }
+
+  .nav {
+    padding: 16px 20px;
+  }
+
+  .mobileMenu {
+    padding: 16px 20px 24px;
+  }
+
+  /* Hero Section */
   .heroTitle {
     font-size: var(--text-4xl);
   }
@@ -1038,6 +1172,7 @@
     width: 100%;
   }
 
+  /* Sections */
   .sectionTitle {
     font-size: var(--text-4xl);
   }
@@ -1045,6 +1180,10 @@
   .stepsGrid {
     grid-template-columns: 1fr;
     gap: 16px;
+  }
+
+  .whyKopaGrid {
+    grid-template-columns: 1fr;
   }
 
   .analyticsMetrics {
@@ -1064,6 +1203,10 @@
     grid-template-columns: 1fr;
   }
 
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
   .ctaTitle {
     font-size: var(--text-3xl);
   }
@@ -1074,7 +1217,15 @@
     text-align: center;
   }
 
-  .navActions {
-    gap: var(--space-2);
+  .howItWorks {
+    padding: 60px 20px;
+  }
+
+  .whyKopa {
+    padding: 60px 20px;
+  }
+
+  .analyticsSection {
+    padding: 60px 20px;
   }
 }
