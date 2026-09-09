@@ -2,8 +2,10 @@
 
 #root {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
 }
 
 /* Page wrapper with smooth transitions */

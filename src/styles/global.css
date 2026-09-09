@@ -7,6 +7,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* Enable smooth touch scrolling */
+  -webkit-overflow-scrolling: touch;
 }
 
 html {
@@ -17,6 +19,12 @@ html {
   -webkit-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  /* Enable proper scrolling */
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* Allow scroll on mobile */
+  touch-action: pan-y;
 }
 
 body {
@@ -27,8 +35,17 @@ body {
   background-color: var(--bg-primary);
   /* Prevent horizontal scroll on mobile */
   overflow-x: hidden;
+  overflow-y: auto;
   /* Improve touch scrolling on iOS */
   -webkit-overflow-scrolling: touch;
+  /* Allow body to scroll */
+  min-height: 100vh;
+  height: auto;
+  position: relative;
+  /* Enable touch scrolling */
+  touch-action: pan-y;
+  /* Prevent pull-to-refresh on Chrome mobile */
+  overscroll-behavior-y: contain;
 }
 
 /* Typography Base */
