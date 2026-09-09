@@ -33,6 +33,7 @@
 .logoImage {
   height: 22px;
   width: auto;
+  border-radius: 4px;
 }
 
 .logoText {

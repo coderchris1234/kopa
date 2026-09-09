@@ -41,6 +41,7 @@
 .logoImage {
   height: 32px;
   width: auto;
+  border-radius: 6px;
 }
 
 .logoText {
@@ -1025,6 +1026,7 @@
   height: 28px;
   width: auto;
   filter: brightness(0) invert(1);
+  border-radius: 6px;
 }
 
 .footerLogoText {

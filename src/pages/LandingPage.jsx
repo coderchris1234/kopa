@@ -50,7 +50,7 @@ export default function LandingPage() {
               <button className={styles.signInButton}>Sign in</button>
             </Link>
             <Link to="/signup">
-              <button className={styles.getStartedButton}>Get started</button>
+              <button className={styles.getStartedButton}>Join KOPA</button>
             </Link>
           </div>
 
@@ -102,7 +102,7 @@ export default function LandingPage() {
                 <button className={styles.mobileSignInButton}>Sign in</button>
               </Link>
               <Link to="/signup" onClick={() => setMobileMenuOpen(false)}>
-                <button className={styles.mobileGetStartedButton}>Get started</button>
+                <button className={styles.mobileGetStartedButton}>Join KOPA</button>
               </Link>
             </div>
           </div>
@@ -124,7 +124,7 @@ export default function LandingPage() {
           </p>
           <div className={styles.heroActions}>
             <Link to="/signup">
-              <button className={styles.primaryButton}>Get Started</button>
+              <button className={styles.primaryButton}>Join KOPA</button>
             </Link>
             <button className={styles.secondaryButton}>See How it Works</button>
           </div>
