@@ -1,14 +1,14 @@
 .layout {
   display: flex;
   min-height: 100vh;
-  background-color: #F9FAFB;
+  background-color: var(--bg-secondary);
 }
 
 /* Sidebar */
 .sidebar {
   width: 240px;
-  background-color: #FFFFFF;
-  border-right: 1px solid #E5E7EB;
+  background-color: var(--surface);
+  border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -21,7 +21,7 @@
 
 .sidebarHeader {
   padding: 20px 16px;
-  border-bottom: 1px solid #F3F4F6;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .logo {
@@ -39,7 +39,7 @@
 .logoText {
   font-size: 16px;
   font-weight: 700;
-  color: #111827;
+  color: var(--text-primary);
 }
 
 .sidebarContent {
@@ -55,7 +55,7 @@
 .navSectionLabel {
   font-size: 10px;
   font-weight: 600;
-  color: #9CA3AF;
+  color: var(--text-tertiary);
   letter-spacing: 0.08em;
   padding: 8px 12px 6px;
   text-transform: uppercase;
@@ -75,19 +75,19 @@
   border-radius: 6px;
   font-size: 13px;
   font-weight: 500;
-  color: #6B7280;
+  color: var(--text-secondary);
   transition: all 0.15s ease;
   cursor: pointer;
   text-decoration: none;
 }
 
 .navItem:hover {
-  background-color: #F9FAFB;
-  color: #374151;
+  background-color: var(--surface-hover);
+  color: var(--text-primary);
 }
 
 .navItem.active {
-  background-color: #2563EB;
+  background-color: var(--brand-accent);
   color: #FFFFFF;
 }
 
@@ -102,7 +102,7 @@
 
 .sidebarFooter {
   padding: 12px;
-  border-top: 1px solid #F3F4F6;
+  border-top: 1px solid var(--border-light);
 }
 
 .viewPageLink {
@@ -136,7 +136,7 @@
 }
 
 .userSection:hover {
-  background-color: #F9FAFB;
+  background-color: var(--surface-hover);
 }
 
 .userAvatar {
@@ -161,7 +161,7 @@
 .userName {
   font-size: 12px;
   font-weight: 600;
-  color: #111827;
+  color: var(--text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -170,7 +170,7 @@
 
 .userEmail {
   font-size: 10px;
-  color: #6B7280;
+  color: var(--text-secondary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -180,7 +180,7 @@
 .menuButton {
   background: none;
   border: none;
-  color: #9CA3AF;
+  color: var(--text-tertiary);
   cursor: pointer;
   padding: 4px;
   border-radius: 4px;
@@ -192,8 +192,8 @@
 }
 
 .menuButton:hover {
-  background-color: #F3F4F6;
-  color: #6B7280;
+  background-color: var(--surface-hover);
+  color: var(--text-secondary);
 }
 
 /* Main Content */
@@ -209,8 +209,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px;
-  background-color: #FFFFFF;
-  border-bottom: 1px solid #E5E7EB;
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   z-index: 40;
@@ -219,7 +219,7 @@
 .mobileMenuButton {
   background: none;
   border: none;
-  color: #374151;
+  color: var(--text-primary);
   cursor: pointer;
   padding: 8px;
   border-radius: 6px;
@@ -227,13 +227,13 @@
 }
 
 .mobileMenuButton:hover {
-  background-color: #F3F4F6;
+  background-color: var(--surface-hover);
 }
 
 .mobileLogo {
   font-size: 18px;
   font-weight: 600;
-  color: #111827;
+  color: var(--text-primary);
 }
 
 .overlay {
