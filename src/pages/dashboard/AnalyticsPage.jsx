@@ -1,208 +1,269 @@
 import { useState } from 'react';
-import { TrendingUp, TrendingDown, Award, Lightbulb, ChevronDown } from 'lucide-react';
-import { Card, CardHeader, CardContent, Select, Badge } from '../../components/ui';
+import { IoWalletOutline, IoBarChartSharp } from 'react-icons/io5';
+import { HiOutlineUsers } from 'react-icons/hi2';
+import { MdOutlineTrendingUp } from 'react-icons/md';
+import { Card } from '../../components/ui';
 import { formatNumber, formatPercentage, formatCurrency } from '../../utils';
-import { conversionFunnel, trafficSources } from '../../data';
 import styles from './AnalyticsPage.module.css';
 
 export default function AnalyticsPage() {
   const [timeRange, setTimeRange] = useState('30');
 
-  // Find the top performing source
-  const topSource = trafficSources.reduce((prev, current) => 
-    current.revenue > prev.revenue ? current : prev
-  );
-
   return (
     <div className={styles.page}>
       {/* Header */}
       <div className={styles.header}>
-        <h1 className={styles.title}>Analytics</h1>
-        <p className={styles.subtitle}>
-          Understand how your audience becomes income
-        </p>
+        <div>
+          <h1 className={styles.title}>Analytics</h1>
+          <p className={styles.subtitle}>Where your money actually comes from</p>
+        </div>
+        <div className={styles.timeRange}>
+          <button className={styles.timeButton}>Last 30 days</button>
+        </div>
       </div>
 
-      {/* Controls */}
-      <div className={styles.controls}>
-        <Select
-          value={timeRange}
-          onChange={(e) => setTimeRange(e.target.value)}
-          options={[
-            { value: '7', label: 'Last 7 days' },
-            { value: '30', label: 'Last 30 days' },
-            { value: '90', label: 'Last 3 months' },
-            { value: '365', label: 'Last 12 months' }
-          ]}
-        />
+      {/* Stats Grid */}
+      <div className={styles.statsGrid}>
+        {/* Page Visitor */}
+        <div className={styles.statCard}>
+          <div className={styles.statHeader}>
+            <span className={styles.statLabel}>Page Visitor</span>
+            <div className={styles.statIconWrapper} style={{ backgroundColor: '#EFF6FF' }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" strokeWidth="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+            </div>
+          </div>
+          <div className={styles.statValue}>9700</div>
+        </div>
+
+        {/* Supporters */}
+        <div className={styles.statCard}>
+          <div className={styles.statHeader}>
+            <span className={styles.statLabel}>Supporters</span>
+            <div className={styles.statIconWrapper} style={{ backgroundColor: '#DBEAFE' }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563EB" strokeWidth="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+          </div>
+          <div className={styles.statValue}>128</div>
+        </div>
+
+        {/* Conversion rate */}
+        <div className={styles.statCard}>
+          <div className={styles.statHeader}>
+            <span className={styles.statLabel}>Conversion rate</span>
+            <div className={styles.statIconWrapper} style={{ backgroundColor: '#F3E8FF' }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9333EA" strokeWidth="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16V8"/>
+                <path d="M8 12l4-4 4 4"/>
+              </svg>
+            </div>
+          </div>
+          <div className={styles.statValue}>1.3%</div>
+        </div>
+
+        {/* Checkout Interest */}
+        <div className={styles.statCard}>
+          <div className={styles.statHeader}>
+            <span className={styles.statLabel}>Checkout Interest</span>
+            <div className={styles.statIconWrapper} style={{ backgroundColor: '#FEF3C7' }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" strokeWidth="2">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                <line x1="1" y1="10" x2="23" y2="10"/>
+              </svg>
+            </div>
+          </div>
+          <div className={styles.statValue}>1624</div>
+        </div>
+
+        {/* Successful payments */}
+        <div className={styles.statCard}>
+          <div className={styles.statHeader}>
+            <span className={styles.statLabel}>Successful payments</span>
+            <div className={styles.statIconWrapper} style={{ backgroundColor: '#D1FAE5' }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+          </div>
+          <div className={styles.statValue}>128</div>
+        </div>
+
+        {/* Avg support amount */}
+        <div className={styles.statCard}>
+          <div className={styles.statHeader}>
+            <span className={styles.statLabel}>Avg. support amount</span>
+            <div className={styles.statIconWrapper} style={{ backgroundColor: '#F3E8FF' }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9333EA" strokeWidth="2">
+                <line x1="12" y1="1" x2="12" y2="23"/>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+          </div>
+          <div className={styles.statValue}>₦2,055</div>
+        </div>
       </div>
 
-      {/* Conversion Funnel */}
-      <Card className={styles.funnelCard}>
-        <CardHeader
-          title="Conversion Funnel"
-          description="Track how visitors become supporters"
-        />
-        <CardContent>
-          <div className={styles.funnel}>
-            {conversionFunnel.stages.map((stage, index) => (
-              <div key={stage.stage} className={styles.funnelStage}>
-                <div className={styles.stageNumber}>{index + 1}</div>
-                <div className={styles.stageInfo}>
-                  <div className={styles.stageName}>{stage.stage}</div>
-                  <div className={styles.stageCount}>
-                    {formatNumber(stage.count)}
-                  </div>
-                  {index > 0 && (
-                    <div className={styles.stagePercentage}>
-                      {formatPercentage(stage.percentage)} of previous stage
-                    </div>
-                  )}
+      {/* Main Content Grid */}
+      <div className={styles.contentGrid}>
+        {/* Conversion Funnel */}
+        <div className={styles.funnelCard}>
+          <div className={styles.cardHeader}>
+            <h2 className={styles.cardTitle}>Conversion funnel</h2>
+            <p className={styles.cardSubtitle}>From visit to payment</p>
+          </div>
+
+          <div className={styles.funnelList}>
+            {/* Page visits */}
+            <div className={styles.funnelItem}>
+              <div className={styles.funnelItemHeader}>
+                <span className={styles.funnelLabel}>Page visits</span>
+                <span className={styles.funnelValue}>9,700</span>
+              </div>
+              <div className={styles.progressBar}>
+                <div className={styles.progressFill} style={{ width: '100%', backgroundColor: '#DBEAFE' }}>
+                  <span className={styles.progressLabel}>100%</span>
                 </div>
               </div>
-            ))}
-          </div>
-
-          <div className={styles.conversionRate}>
-            <div className={styles.conversionRateLabel}>
-              Overall Conversion Rate
-            </div>
-            <div className={styles.conversionRateValue}>
-              {formatPercentage(conversionFunnel.conversionRate)}
-            </div>
-            <div className={styles.conversionRateDescription}>
-              {conversionFunnel.successfulPayments} payments from {formatNumber(conversionFunnel.pageVisits)} visitors
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Traffic Sources */}
-      <Card>
-        <CardHeader
-          title="Traffic Sources"
-          description="Where your supporters come from"
-        />
-        <CardContent>
-          <div className={styles.sourcesGrid}>
-            {trafficSources.map((source) => (
-              <div 
-                key={source.id} 
-                className={`${styles.sourceCard} ${source.id === topSource.id ? styles.topSource : ''}`}
-              >
-                <div className={styles.sourceHeader}>
-                  <div className={styles.sourceName}>{source.source}</div>
-                  <div className={styles.sourcePercentage}>{source.percentage}%</div>
-                </div>
-
-                <div className={styles.sourceMetrics}>
-                  <div className={styles.sourceMetric}>
-                    <span className={styles.metricValue}>
-                      {formatNumber(source.visitors)}
-                    </span>
-                    <span className={styles.metricLabel}>Visitors</span>
-                  </div>
-                  <div className={styles.sourceMetric}>
-                    <span className={styles.metricValue}>
-                      {source.supporters}
-                    </span>
-                    <span className={styles.metricLabel}>Supporters</span>
-                  </div>
-                  <div className={styles.sourceMetric}>
-                    <span className={styles.metricValue}>
-                      {formatCurrency(source.revenue)}
-                    </span>
-                    <span className={styles.metricLabel}>Revenue</span>
-                  </div>
-                </div>
-
-                <div className={`${styles.sourceGrowth} ${
-                  source.growth >= 0 ? styles.positive : styles.negative
-                }`}>
-                  {source.growth >= 0 ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
-                  {Math.abs(source.growth)}% vs last period
-                </div>
-
-                {source.id === topSource.id && (
-                  <div className={styles.topSourceBadge}>
-                    <Award size={14} />
-                    Top performing platform
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Insights */}
-      <Card className={styles.insights}>
-        <div className={styles.insightsTitle}>
-          <Lightbulb size={20} style={{ display: 'inline', marginRight: 'var(--space-2)' }} />
-          Key Insights
-        </div>
-        <div className={styles.insightsList}>
-          <div className={styles.insightItem}>
-            <div className={styles.insightIcon}>
-              <Award size={20} />
-            </div>
-            <div className={styles.insightContent}>
-              <p className={styles.insightText}>
-                <strong>{topSource.source}</strong> is your highest-converting platform with {topSource.supporters} supporters 
-                generating {formatCurrency(topSource.revenue)} in revenue.
-              </p>
-            </div>
-          </div>
-
-          <div className={styles.insightItem}>
-            <div className={styles.insightIcon}>
-              <TrendingUp size={20} />
-            </div>
-            <div className={styles.insightContent}>
-              <p className={styles.insightText}>
-                Your conversion rate is <strong>{formatPercentage(conversionFunnel.conversionRate)}</strong>. 
-                This means {conversionFunnel.successfulPayments} out of every {formatNumber(conversionFunnel.pageVisits)} 
-                visitors complete a payment.
-              </p>
-            </div>
-          </div>
-
-          {trafficSources.filter(s => s.growth > 10).length > 0 && (
-            <div className={styles.insightItem}>
-              <div className={styles.insightIcon}>
-                <TrendingUp size={20} />
-              </div>
-              <div className={styles.insightContent}>
-                <p className={styles.insightText}>
-                  Strong growth on{' '}
-                  {trafficSources
-                    .filter(s => s.growth > 10)
-                    .map(s => <strong key={s.id}>{s.source}</strong>)
-                    .reduce((prev, curr, i, arr) => {
-                      if (i === 0) return [curr];
-                      if (i === arr.length - 1) return [...prev, ' and ', curr];
-                      return [...prev, ', ', curr];
-                    }, [])}
-                  . Consider focusing more content on these platforms.
-                </p>
+              <div className={styles.funnelArrow}>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M6 2V10M6 10L2 6M6 10L10 6" stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               </div>
             </div>
-          )}
 
-          <div className={styles.insightItem}>
-            <div className={styles.insightIcon}>
-              <Lightbulb size={20} />
+            {/* Support buttons clicked */}
+            <div className={styles.funnelItem}>
+              <div className={styles.funnelItemHeader}>
+                <span className={styles.funnelLabel}>Support buttons clicked</span>
+                <span className={styles.funnelValue}>2,619</span>
+              </div>
+              <div className={styles.progressBar}>
+                <div className={styles.progressFill} style={{ width: '27%', backgroundColor: '#93C5FD' }}>
+                  <span className={styles.progressLabel}>27%</span>
+                </div>
+              </div>
+              <div className={styles.funnelArrow}>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M6 2V10M6 10L2 6M6 10L10 6" stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
             </div>
-            <div className={styles.insightContent}>
-              <p className={styles.insightText}>
-                <strong>{conversionFunnel.supportButtonClicks}</strong> people clicked the support button but 
-                only <strong>{conversionFunnel.checkoutStarted}</strong> started checkout. 
-                Consider simplifying your support options to improve this step.
-              </p>
+
+            {/* Checkout initiated */}
+            <div className={styles.funnelItem}>
+              <div className={styles.funnelItemHeader}>
+                <span className={styles.funnelLabel}>Checkout initiated</span>
+                <span className={styles.funnelValue}>1,624</span>
+              </div>
+              <div className={styles.progressBar}>
+                <div className={styles.progressFill} style={{ width: '17%', backgroundColor: '#FED7AA' }}>
+                  <span className={styles.progressLabel}>17%</span>
+                </div>
+              </div>
+              <div className={styles.funnelArrow}>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M6 2V10M6 10L2 6M6 10L10 6" stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
             </div>
+
+            {/* Successful payments */}
+            <div className={styles.funnelItem}>
+              <div className={styles.funnelItemHeader}>
+                <span className={styles.funnelLabel}>Successful payments</span>
+                <span className={styles.funnelValue}>128</span>
+              </div>
+              <div className={styles.progressBar}>
+                <div className={styles.progressFill} style={{ width: '1.3%', backgroundColor: '#86EFAC' }}>
+                  <span className={styles.progressLabel}>1%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.overallConversion}>
+            <div className={styles.conversionLabel}>Overall conversion rate</div>
+            <div className={styles.conversionValue}>1.3%</div>
           </div>
         </div>
-      </Card>
+
+        {/* Revenue by Platform */}
+        <div className={styles.revenueCard}>
+          <div className={styles.cardHeader}>
+            <h2 className={styles.cardTitle}>Revenue by platform</h2>
+            <p className={styles.cardSubtitle}>Where supporters and revenue comes from</p>
+          </div>
+
+          <div className={styles.tableContainer}>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Platform</th>
+                  <th>Visitors</th>
+                  <th>Supporters</th>
+                  <th>Revenue</th>
+                  <th>Conv.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className={styles.platformCell}>Instagram</td>
+                  <td>2,400</td>
+                  <td>45</td>
+                  <td className={styles.revenueCell}>₦65,000</td>
+                  <td>
+                    <span className={styles.convBadge}>19%</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className={styles.platformCell}>TikTok</td>
+                  <td>2,100</td>
+                  <td>24</td>
+                  <td className={styles.revenueCell}>₦52,000</td>
+                  <td>
+                    <span className={styles.convBadge}>11%</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className={styles.platformCell}>WhatsApp</td>
+                  <td>1,800</td>
+                  <td>22</td>
+                  <td className={styles.revenueCell}>₦48,000</td>
+                  <td>
+                    <span className={styles.convBadge}>12%</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className={styles.platformCell}>YouTube</td>
+                  <td>1,250</td>
+                  <td>16</td>
+                  <td className={styles.revenueCell}>₦41,000</td>
+                  <td>
+                    <span className={styles.convBadge}>14%</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className={styles.platformCell}>X</td>
+                  <td>1,450</td>
+                  <td>21</td>
+                  <td className={styles.revenueCell}>₦47,000</td>
+                  <td>
+                    <span className={styles.convBadge}>3%</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

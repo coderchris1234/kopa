@@ -1,265 +1,161 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Copy, Share2, ExternalLink, Eye, Music2, Globe } from 'lucide-react';
-import { Button, Input, Textarea } from '../../components/ui';
-import { useAuth } from '../../hooks';
-import { generateKopaLink, copyToClipboard, getInitials, formatCurrency } from '../../utils';
+import { Copy, ExternalLink, Trash2 } from 'lucide-react';
+import { formatCurrency } from '../../utils';
 import styles from './MyKopaPagePage.module.css';
 
-const SOCIAL_ICONS = {
-  instagram: Globe,
-  tiktok: Music2,
-  x: Globe,
-  youtube: Globe,
-  facebook: Globe,
-  website: Globe
-};
-
 export default function MyKopaPagePage() {
-  const { user, updateUser } = useAuth();
-  
-  // Editor state
-  const [formData, setFormData] = useState({
-    name: user?.name || '',
-    bio: user?.bio || '',
-    instagram: user?.socialLinks?.instagram || '',
-    tiktok: user?.socialLinks?.tiktok || '',
-    x: user?.socialLinks?.x || '',
-    youtube: user?.socialLinks?.youtube || '',
-    website: user?.socialLinks?.website || ''
-  });
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const [isPublic, setIsPublic] = useState(true);
-
-  const handleChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleSave = () => {
-    updateUser({
-      name: formData.name,
-      bio: formData.bio,
-      socialLinks: {
-        instagram: formData.instagram,
-        tiktok: formData.tiktok,
-        x: formData.x,
-        youtube: formData.youtube,
-        website: formData.website
-      }
-    });
-    // Show success toast here
-  };
-
-  const handleCopyLink = async () => {
-    const link = generateKopaLink(user?.username || 'creator');
-    await copyToClipboard(`https://${link}`);
-  };
-
-  // Get active social links for preview
-  const activeSocialLinks = Object.entries({
-    instagram: formData.instagram,
-    tiktok: formData.tiktok,
-    x: formData.x,
-    youtube: formData.youtube,
-    website: formData.website
-  }).filter(([_, url]) => url);
-
-  // Mock support tiers (in real app, these would come from user data)
-  const supportTiers = [
-    { id: '1', title: 'Buy me a coffee', amount: 500 },
-    { id: '2', title: 'Support my work', amount: 2000 },
-    { id: '3', title: 'Super Supporter', amount: 5000 }
+  // Mock payment links data matching screenshot
+  const paymentLinks = [
+    { 
+      id: 1, 
+      name: 'Instagram link', 
+      url: 'kopa.africa/chitibubossman', 
+      visits: 3200, 
+      supporters: 45, 
+      revenue: 85000,
+      conversion: 14
+    },
+    { 
+      id: 2, 
+      name: 'TikTok link', 
+      url: 'kopa.africa/chitibubos/tiktok', 
+      visits: 2100, 
+      supporters: 28, 
+      revenue: 52000,
+      conversion: 13
+    },
+    { 
+      id: 3, 
+      name: 'WhatsApp link', 
+      url: 'kopa.africa/chitibubos/whatsapp', 
+      visits: 1800, 
+      supporters: 22, 
+      revenue: 48000,
+      conversion: 12
+    },
+    { 
+      id: 4, 
+      name: 'YouTube link', 
+      url: 'kopa.africa/chitibubosyt/youtube', 
+      visits: 1200, 
+      supporters: 12, 
+      revenue: 21000,
+      conversion: 14
+    },
+    { 
+      id: 5, 
+      name: 'X link', 
+      url: 'kopa.africa/chitibubos/x', 
+      visits: 1400, 
+      supporters: 21, 
+      revenue: 47000,
+      conversion: 33
+    },
   ];
+
+  const totalVisits = paymentLinks.reduce((sum, link) => sum + link.visits, 0);
+  const totalRevenue = paymentLinks.reduce((sum, link) => sum + link.revenue, 0);
+  const activeLinks = paymentLinks.length;
+
+  const handleCopyLink = (url) => {
+    navigator.clipboard.writeText(`https://${url}`);
+  };
 
   return (
     <div className={styles.page}>
       {/* Header */}
       <div className={styles.header}>
-        <h1 className={styles.title}>My KOPA Page</h1>
-        <p className={styles.subtitle}>
-          Manage your public support page and share it with your audience
-        </p>
+        <div>
+          <h1 className={styles.title}>Payment Links</h1>
+          <p className={styles.subtitle}>Create a unique link for each platform to track where supporters come from</p>
+        </div>
+        <button className={styles.createButton}>
+          <span className={styles.plusIcon}>+</span>
+          Create payment link
+        </button>
       </div>
 
-      <div className={styles.layout}>
-        {/* Editor Section */}
-        <div className={styles.editorSection}>
-          <h2 className={styles.sectionTitle}>Edit your page</h2>
-
-          {/* Public Link */}
-          <div className={styles.linkSection}>
-            <div className={styles.linkLabel}>Your public link</div>
-            <div className={styles.linkValue}>
-              {generateKopaLink(user?.username || 'creator')}
-            </div>
-            <div className={styles.linkActions}>
-              <Button variant="outline" size="sm" onClick={handleCopyLink}>
-                <Copy size={16} />
-                Copy link
-              </Button>
-              <Button variant="outline" size="sm">
-                <Share2 size={16} />
-                Share
-              </Button>
-            </div>
-          </div>
-
-          {/* Profile Editor */}
-          <div className={styles.editorCard}>
-            <div className={styles.form}>
-              <Input
-                label="Name"
-                value={formData.name}
-                onChange={(e) => handleChange('name', e.target.value)}
-                placeholder="Your display name"
-              />
-
-              <Textarea
-                label="Bio"
-                value={formData.bio}
-                onChange={(e) => handleChange('bio', e.target.value)}
-                placeholder="Tell your audience about yourself..."
-                rows={4}
-              />
-
-              <Input
-                label="Instagram"
-                value={formData.instagram}
-                onChange={(e) => handleChange('instagram', e.target.value)}
-                placeholder="https://instagram.com/yourhandle"
-              />
-
-              <Input
-                label="TikTok"
-                value={formData.tiktok}
-                onChange={(e) => handleChange('tiktok', e.target.value)}
-                placeholder="https://tiktok.com/@yourhandle"
-              />
-
-              <Input
-                label="X (Twitter)"
-                value={formData.x}
-                onChange={(e) => handleChange('x', e.target.value)}
-                placeholder="https://x.com/yourhandle"
-              />
-
-              <Input
-                label="YouTube"
-                value={formData.youtube}
-                onChange={(e) => handleChange('youtube', e.target.value)}
-                placeholder="https://youtube.com/@yourchannel"
-              />
-
-              <Input
-                label="Website"
-                value={formData.website}
-                onChange={(e) => handleChange('website', e.target.value)}
-                placeholder="https://yourwebsite.com"
-              />
-
-              {/* Page Visibility */}
-              <div className={styles.visibilitySection}>
-                <div className={styles.visibilityLabel}>
-                  <span className={styles.visibilityTitle}>Page is public</span>
-                  <span className={styles.visibilityDescription}>
-                    Anyone with the link can support you
-                  </span>
-                </div>
-                <div 
-                  className={`${styles.toggle} ${isPublic ? styles.active : ''}`}
-                  onClick={() => setIsPublic(!isPublic)}
-                >
-                  <div className={styles.toggleHandle} />
-                </div>
-              </div>
-
-              <Button onClick={handleSave} className={styles.saveButton}>
-                Save changes
-              </Button>
-
-              <Link to={`/${user?.username || 'creator'}`} target="_blank">
-                <Button variant="outline" fullWidth>
-                  <ExternalLink size={18} />
-                  View public page
-                </Button>
-              </Link>
-            </div>
-          </div>
+      {/* Stats Cards */}
+      <div className={styles.statsGrid}>
+        <div className={styles.statCard}>
+          <div className={styles.statLabel}>Active links</div>
+          <div className={styles.statValue}>{activeLinks}</div>
         </div>
+        <div className={styles.statCard}>
+          <div className={styles.statLabel}>Total visits</div>
+          <div className={styles.statValue}>{totalVisits.toLocaleString()}</div>
+        </div>
+        <div className={styles.statCard}>
+          <div className={styles.statLabel}>Total revenue</div>
+          <div className={styles.statValue}>{formatCurrency(totalRevenue)}</div>
+        </div>
+      </div>
 
-        {/* Preview Section */}
-        <div className={styles.previewSection}>
-          <div className={styles.previewLabel}>
-            <Eye size={16} />
-            Live Preview
-          </div>
-
-          <div className={styles.previewCard}>
-            {/* Header */}
-            <div className={styles.previewHeader}>
-              <div className={styles.previewAvatar}>
-                {getInitials(formData.name || user?.name || 'User')}
-              </div>
-              <h2 className={styles.previewName}>
-                {formData.name || user?.name || 'Your Name'}
-              </h2>
-              {formData.bio && (
-                <p className={styles.previewBio}>{formData.bio}</p>
-              )}
-
-              {/* Social Links */}
-              {activeSocialLinks.length > 0 && (
-                <div className={styles.previewSocial}>
-                  {activeSocialLinks.map(([platform, url]) => {
-                    const Icon = SOCIAL_ICONS[platform];
-                    return (
-                      <a 
-                        key={platform}
-                        href={url}
-                        className={styles.socialLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Icon size={16} />
-                        {platform.charAt(0).toUpperCase() + platform.slice(1)}
-                      </a>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-
-            {/* Support Section */}
-            <div className={styles.previewSupport}>
-              <h3 className={styles.previewSupportTitle}>Support my work</h3>
-              <p className={styles.previewSupportDescription}>
-                If my work brings you value, you can support what I do.
-              </p>
-
-              <div className={styles.previewTiers}>
-                {supportTiers.map(tier => (
-                  <div key={tier.id} className={styles.previewTier}>
-                    <span className={styles.previewTierTitle}>{tier.title}</span>
-                    <span className={styles.previewTierAmount}>
-                      {formatCurrency(tier.amount)}
-                    </span>
+      {/* Payment Links Table */}
+      <div className={styles.tableCard}>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Link</th>
+              <th>Visits</th>
+              <th>Supporters</th>
+              <th>Revenue</th>
+              <th>Conv.</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {paymentLinks.map((link) => (
+              <tr key={link.id}>
+                <td>
+                  <div className={styles.linkCell}>
+                    <div className={styles.linkIcon}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" strokeWidth="2">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                      </svg>
+                    </div>
+                    <div className={styles.linkInfo}>
+                      <div className={styles.linkName}>{link.name}</div>
+                      <div className={styles.linkUrl}>{link.url}</div>
+                    </div>
                   </div>
-                ))}
-              </div>
-
-              {/* Custom Amount */}
-              <div className={styles.previewCustom}>
-                <div className={styles.previewCustomTitle}>Or enter a custom amount</div>
-                <input
-                  type="number"
-                  placeholder="Enter amount"
-                  className={styles.previewCustomInput}
-                  disabled
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+                </td>
+                <td className={styles.dataCell}>{link.visits.toLocaleString()}</td>
+                <td className={styles.dataCell}>{link.supporters}</td>
+                <td className={styles.dataCell}>{formatCurrency(link.revenue)}</td>
+                <td className={styles.dataCell}>
+                  <span className={styles.convBadge}>{link.conversion}%</span>
+                </td>
+                <td>
+                  <div className={styles.actions}>
+                    <button 
+                      className={styles.actionButton}
+                      onClick={() => handleCopyLink(link.url)}
+                      title="Copy link"
+                    >
+                      <Copy size={16} />
+                    </button>
+                    <button 
+                      className={styles.actionButton}
+                      title="Open link"
+                    >
+                      <ExternalLink size={16} />
+                    </button>
+                    <button 
+                      className={styles.actionButton}
+                      title="Delete link"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

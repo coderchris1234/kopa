@@ -1,5 +1,10 @@
 /* KOPA Design System Variables */
 
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   /* Brand Colors - Restrained and Professional */
   --brand-primary: #0F172A;

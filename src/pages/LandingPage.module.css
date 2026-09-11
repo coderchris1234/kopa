@@ -1,5 +1,59 @@
 /* Landing Page Styles */
 
+/* Animation Keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .page {
   min-height: 100vh;
   background-color: var(--bg-primary);
@@ -19,6 +73,7 @@
   width: 100%;
   background-color: transparent;
   padding: 16px 32px;
+  animation: fadeIn 0.6s ease-out;
 }
 
 .nav {
@@ -32,6 +87,27 @@
   background-color: var(--gray-50);
   border-radius: 12px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Dark mode: Keep nav text dark for visibility on light background */
+:global(.dark) .nav .navLink,
+:global(.dark) .nav .signInButton {
+  color: var(--gray-700);
+}
+
+:global(.dark) .nav .navLink:hover,
+:global(.dark) .nav .signInButton:hover {
+  color: var(--brand-primary);
+}
+
+:global(.dark) .nav .themeToggle {
+  color: var(--gray-600);
+  border-color: var(--gray-300);
+}
+
+:global(.dark) .nav .themeToggle:hover {
+  color: var(--brand-primary);
+  background-color: var(--gray-100);
 }
 
 .logoContainer {
@@ -67,12 +143,30 @@
   font-weight: 500;
   color: var(--text-secondary);
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: all 0.2s ease;
   white-space: nowrap;
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--brand-accent);
+  transition: width 0.3s ease;
 }
 
 .navLink:hover {
   color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.navLink:hover::after {
+  width: 100%;
 }
 
 .navActions {
@@ -265,6 +359,7 @@
 
 .heroContent {
   max-width: 560px;
+  animation: slideInLeft 0.8s ease-out;
 }
 
 .badge {
@@ -279,6 +374,7 @@
   font-weight: 500;
   border-radius: 20px;
   margin-bottom: 24px;
+  animation: scaleIn 0.6s ease-out 0.2s both;
 }
 
 .badgeIcon {
@@ -326,7 +422,12 @@
 
 .primaryButton:hover {
   background: var(--brand-accent-hover);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.primaryButton:active {
+  transform: translateY(0);
 }
 
 .secondaryButton {
@@ -344,6 +445,11 @@
 .secondaryButton:hover {
   background: var(--bg-secondary);
   border-color: var(--gray-400);
+  transform: translateY(-2px);
+}
+
+.secondaryButton:active {
+  transform: translateY(0);
 }
 
 .heroVisual {
@@ -351,6 +457,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  animation: slideInRight 0.8s ease-out;
 }
 
 .heroImageContainer {
@@ -371,13 +478,25 @@
   position: absolute;
   bottom: -90px;
   left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  max-width: 380px;
+  width: 95%;
+  max-width: 420px;
   background: var(--surface);
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: supportCardAppear 0.8s ease-out 0.5s forwards;
+}
+
+@keyframes supportCardAppear {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
 }
 
 .supportCardHeader {
@@ -584,6 +703,8 @@
 .sectionHeader {
   text-align: center;
   margin-bottom: 64px;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
 }
 
 .sectionTitle {
@@ -618,12 +739,31 @@
   border-radius: 12px;
   padding: 24px;
   position: relative;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.stepCard:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.stepCard:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.stepCard:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.stepCard:nth-child(4) {
+  animation-delay: 0.4s;
 }
 
 .stepCard:hover {
   border-color: var(--gray-300);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
 }
 
 .stepIconWrapper {
@@ -675,6 +815,8 @@
 .whyKopaHeader {
   text-align: center;
   margin-bottom: 48px;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
 }
 
 .whyKopaTitle {
@@ -712,12 +854,30 @@
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 24px;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition: all 0.3s ease;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.whyKopaCard:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.whyKopaCard:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.whyKopaCard:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.whyKopaCard:nth-child(4) {
+  animation-delay: 0.4s;
 }
 
 .whyKopaCard:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-6px);
 }
 
 .whyKopaIcon {
@@ -964,15 +1124,19 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   margin-bottom: 20px;
   position: relative;
   z-index: 1;
 }
 
 .ctaJoinButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.ctaJoinButton:active {
+  transform: translateY(-1px) scale(1);
 }
 
 .ctaSubtext {

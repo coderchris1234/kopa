@@ -25,6 +25,8 @@ html {
   overflow-x: hidden;
   /* Allow scroll on mobile */
   touch-action: pan-y;
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
 }
 
 body {

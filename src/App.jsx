@@ -16,6 +16,8 @@ import SupportersPage from './pages/dashboard/SupportersPage';
 import TransactionsPage from './pages/dashboard/TransactionsPage';
 import MyKopaPagePage from './pages/dashboard/MyKopaPagePage';
 import SettingsPage from './pages/dashboard/SettingsPage';
+import NotificationsPage from './pages/dashboard/NotificationsPage';
+import ProfilePage from './pages/dashboard/ProfilePage';
 import './App.css';
 
 function App() {
@@ -81,11 +83,41 @@ function App() {
             }
           />
           <Route
+            path="/dashboard/notifications"
+            element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <NotificationsPage />
+                </DashboardLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard/links"
+            element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <MyKopaPagePage />
+                </DashboardLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/dashboard/page"
             element={
               <ProtectedRoute>
                 <DashboardLayout>
                   <MyKopaPagePage />
+                </DashboardLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard/profile"
+            element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <ProfilePage />
                 </DashboardLayout>
               </ProtectedRoute>
             }
