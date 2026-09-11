@@ -281,10 +281,12 @@
   }
 
   .createButton {
-    width: 100%;
+    width: auto;
+    align-self: center;
     justify-content: center;
-    padding: 10px 16px;
+    padding: 10px 20px;
     order: 1;
+    font-size: 13px;
   }
 
   .statsGrid {
