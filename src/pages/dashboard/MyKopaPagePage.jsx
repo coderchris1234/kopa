@@ -67,7 +67,7 @@ export default function MyKopaPagePage() {
     <div className={styles.page}>
       {/* Header */}
       <div className={styles.header}>
-        <div>
+        <div className={styles.headerContent}>
           <h1 className={styles.title}>Payment Links</h1>
           <p className={styles.subtitle}>Create a unique link for each platform to track where supporters come from</p>
         </div>
