@@ -153,6 +153,15 @@
   letter-spacing: -0.01em;
 }
 
+/* Dark mode avatar */
+:global(.dark) .avatar {
+  background-color: #1E3A8A;
+  color: #93C5FD;
+}
+  font-size: 16px;
+  letter-spacing: -0.01em;
+}
+
 .supporterInfo {
   flex: 1;
   min-width: 0;
@@ -202,22 +211,30 @@
     padding: 20px;
   }
 
+  .header {
+    margin-bottom: 20px;
+  }
+
   .searchSection {
     flex-direction: column;
     align-items: stretch;
+    gap: 12px;
   }
 
   .searchWrapper {
     flex: 1;
+    max-width: 100%;
   }
 
   .filterButtons {
     width: 100%;
     justify-content: space-between;
+    flex-wrap: wrap;
   }
 
   .filterButton {
     flex: 1;
+    min-width: calc(33.333% - 6px);
   }
 
   .title {
@@ -226,5 +243,31 @@
 
   .supportersGrid {
     gap: 12px;
+  }
+
+  .supporterCard {
+    padding: 14px;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 15px;
+  }
+
+  .supporterName {
+    font-size: 13px;
+  }
+
+  .supporterMeta {
+    font-size: 11px;
+  }
+
+  .supporterDate {
+    font-size: 10px;
+  }
+
+  .amount {
+    font-size: 14px;
   }
 }

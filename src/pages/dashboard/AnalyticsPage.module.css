@@ -332,13 +332,22 @@
     padding: 20px;
   }
 
-  .statsGrid {
-    grid-template-columns: 1fr;
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
     gap: 12px;
   }
 
-  .header {
-    flex-direction: column;
+  .timeRange {
+    width: 100%;
+  }
+
+  .timeSelect {
+    width: 100%;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
     gap: 12px;
   }
 
@@ -356,6 +365,15 @@
   }
 
   .table {
-    min-width: 600px;
+    min-width: 700px;
+  }
+
+  .contentGrid {
+    gap: 16px;
+  }
+
+  .funnelCard,
+  .revenueCard {
+    padding: 20px;
   }
 }

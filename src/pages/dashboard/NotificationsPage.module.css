@@ -167,6 +167,7 @@
 
   .header {
     flex-direction: column;
+    align-items: flex-start;
     gap: 12px;
   }
 
@@ -176,14 +177,20 @@
 
   .filterButtons {
     width: 100%;
+    flex-wrap: wrap;
   }
 
   .filterButton {
     flex: 1;
+    min-width: calc(33.333% - 6px);
   }
 
   .title {
     font-size: 18px;
+  }
+
+  .notificationsList {
+    gap: 10px;
   }
 
   .notificationCard {
@@ -194,5 +201,17 @@
   .notificationIcon {
     width: 40px;
     height: 40px;
+  }
+
+  .notificationTitle {
+    font-size: 13px;
+  }
+
+  .notificationMessage {
+    font-size: 12px;
+  }
+
+  .notificationTime {
+    font-size: 11px;
   }
 }

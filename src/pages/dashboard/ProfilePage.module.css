@@ -337,6 +337,11 @@
   .leftColumn {
     position: static;
     order: -1;
+    max-width: 100%;
+  }
+
+  .profileCard {
+    max-width: 100%;
   }
 }
 
@@ -349,15 +354,82 @@
     font-size: 18px;
   }
 
+  .header {
+    margin-bottom: 20px;
+  }
+
+  .content {
+    gap: 20px;
+  }
+
   .formRow {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .section {
     padding: 20px;
   }
 
+  .sectionHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .addButton {
+    width: 100%;
+  }
+
   .profileCard {
     max-width: 100%;
+  }
+
+  .coverImage {
+    height: 100px;
+  }
+
+  .avatar {
+    width: 70px;
+    height: 70px;
+    font-size: 28px;
+  }
+
+  .avatarWrapper {
+    bottom: -35px;
+  }
+
+  .profileInfo {
+    padding: 45px 16px 16px;
+  }
+
+  .profileName {
+    font-size: 15px;
+  }
+
+  .profileUsername {
+    font-size: 12px;
+  }
+
+  .profileBio {
+    font-size: 11px;
+  }
+
+  .socialPreview {
+    gap: 6px;
+  }
+
+  .socialLink {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+
+  .uploadSection {
+    margin-bottom: 16px;
+  }
+
+  .uploadButton {
+    width: 100%;
+    justify-content: center;
   }
 }
