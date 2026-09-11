@@ -282,7 +282,7 @@
 
   .createButton {
     width: auto;
-    align-self: center;
+    align-self: flex-start;
     justify-content: center;
     padding: 10px 20px;
     order: 1;
