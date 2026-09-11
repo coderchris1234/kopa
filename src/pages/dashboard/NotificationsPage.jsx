@@ -1,10 +1,30 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Heart, TrendingUp, BarChart } from 'lucide-react';
 import { formatCurrency } from '../../utils';
 import styles from './NotificationsPage.module.css';
 
 export default function NotificationsPage() {
   const [activeFilter, setActiveFilter] = useState('all');
+  const [isDark, setIsDark] = useState(false);
+
+  // Detect dark mode
+  useEffect(() => {
+    const checkDarkMode = () => {
+      const isDarkMode = document.documentElement.classList.contains('dark');
+      setIsDark(isDarkMode);
+    };
+
+    checkDarkMode();
+    
+    // Watch for theme changes
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   // Mock notifications data matching screenshot
   const notifications = [
@@ -13,7 +33,9 @@ export default function NotificationsPage() {
       type: 'payment',
       icon: 'heart',
       iconBg: '#FEE2E2',
+      iconBgDark: '#7F1D1D',
       iconColor: '#EF4444',
+      iconColorDark: '#FCA5A5',
       title: 'New support from Bolatumi',
       message: 'Bolatumi O. just sent you ₦5,000.',
       time: '3 days ago',
@@ -24,7 +46,9 @@ export default function NotificationsPage() {
       type: 'milestone',
       icon: 'trending',
       iconBg: '#FEF3C7',
+      iconBgDark: '#78350F',
       iconColor: '#F59E0B',
+      iconColorDark: '#FCD34D',
       title: 'Milestone reached',
       message: 'You\'ve hit ₦200,000 in total support.',
       time: '3 days ago',
@@ -35,7 +59,9 @@ export default function NotificationsPage() {
       type: 'payment',
       icon: 'heart',
       iconBg: '#FEE2E2',
+      iconBgDark: '#7F1D1D',
       iconColor: '#EF4444',
+      iconColorDark: '#FCA5A5',
       title: 'New support from Tunde',
       message: 'Tunde A. just sent you ₦2,000.',
       time: '5 days ago',
@@ -46,7 +72,9 @@ export default function NotificationsPage() {
       type: 'update',
       icon: 'chart',
       iconBg: '#F3E8FF',
+      iconBgDark: '#581C87',
       iconColor: '#9333EA',
+      iconColorDark: '#D8B4FE',
       title: 'Weekly summary',
       message: 'You gained 12 supporters this week.',
       time: '3 days ago',
@@ -124,8 +152,8 @@ export default function NotificationsPage() {
             <div 
               className={styles.notificationIcon}
               style={{ 
-                backgroundColor: notification.iconBg,
-                color: notification.iconColor 
+                backgroundColor: isDark ? notification.iconBgDark : notification.iconBg,
+                color: isDark ? notification.iconColorDark : notification.iconColor
               }}
             >
               {getIcon(notification.icon)}
