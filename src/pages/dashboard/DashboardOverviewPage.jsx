@@ -2,10 +2,31 @@ import { Link } from 'react-router-dom';
 import { TrendingUp, TrendingDown, ArrowRight, Wallet, Users, TrendingUp as RateIcon } from 'lucide-react';
 import { useAuth } from '../../hooks';
 import { formatCurrency, formatNumber } from '../../utils';
+import { useState, useEffect } from 'react';
 import styles from './DashboardOverviewPage.module.css';
 
 export default function DashboardOverviewPage() {
   const { user } = useAuth();
+  const [isDark, setIsDark] = useState(false);
+
+  // Detect dark mode
+  useEffect(() => {
+    const checkDarkMode = () => {
+      const isDarkMode = document.documentElement.classList.contains('dark');
+      setIsDark(isDarkMode);
+    };
+
+    checkDarkMode();
+    
+    // Watch for theme changes
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   // Mock data
   const stats = {
@@ -108,7 +129,7 @@ export default function DashboardOverviewPage() {
       <div className={styles.statsGrid}>
         <div className={styles.statCard}>
           <div className={styles.statIcon}>
-            <Wallet size={16} color="#10B981" />
+            <Wallet size={16} color={isDark ? '#6EE7B7' : '#10B981'} />
           </div>
           <div className={styles.statContent}>
             <div className={styles.statLabel}>Total earned</div>
@@ -118,7 +139,7 @@ export default function DashboardOverviewPage() {
 
         <div className={styles.statCard}>
           <div className={styles.statIcon}>
-            <RateIcon size={16} color="#F59E0B" />
+            <RateIcon size={16} color={isDark ? '#FCD34D' : '#F59E0B'} />
           </div>
           <div className={styles.statContent}>
             <div className={styles.statLabel}>This month</div>
@@ -128,7 +149,7 @@ export default function DashboardOverviewPage() {
 
         <div className={styles.statCard}>
           <div className={styles.statIcon}>
-            <Users size={16} color="#3B82F6" />
+            <Users size={16} color={isDark ? '#93C5FD' : '#3B82F6'} />
           </div>
           <div className={styles.statContent}>
             <div className={styles.statLabel}>Total supporters</div>
@@ -139,8 +160,8 @@ export default function DashboardOverviewPage() {
         <div className={styles.statCard}>
           <div className={styles.statIcon}>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M8 14A6 6 0 108 2a6 6 0 000 12z" stroke="#8B5CF6" strokeWidth="1.5" fill="none"/>
-              <path d="M8 4v4l2 2" stroke="#8B5CF6" strokeWidth="1.5" strokeLinecap="round"/>
+              <path d="M8 14A6 6 0 108 2a6 6 0 000 12z" stroke={isDark ? '#C4B5FD' : '#8B5CF6'} strokeWidth="1.5" fill="none"/>
+              <path d="M8 4v4l2 2" stroke={isDark ? '#C4B5FD' : '#8B5CF6'} strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
           </div>
           <div className={styles.statContent}>
