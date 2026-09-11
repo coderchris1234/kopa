@@ -168,6 +168,15 @@
   flex-shrink: 0;
 }
 
+/* Dark mode link icon */
+:global(.dark) .linkIcon {
+  background-color: #1E3A8A;
+}
+
+:global(.dark) .linkIcon svg {
+  stroke: #93C5FD;
+}
+
 .linkInfo {
   display: flex;
   flex-direction: column;
@@ -241,26 +250,41 @@
 
 @media (max-width: 768px) {
   .page {
-    padding: 20px;
+    padding: 16px;
   }
 
   .header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .subtitle {
+    font-size: 12px;
   }
 
   .createButton {
     width: 100%;
     justify-content: center;
+    padding: 10px 16px;
   }
 
   .statsGrid {
-    gap: 12px;
+    gap: 10px;
+    margin-bottom: 20px;
   }
 
-  .title {
-    font-size: 18px;
+  .statCard {
+    padding: 16px;
+  }
+
+  .statLabel {
+    font-size: 12px;
   }
 
   .statValue {
@@ -271,20 +295,46 @@
   .tableCard {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    margin: 0 -16px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
   }
 
   .table {
-    min-width: 800px;
+    min-width: 700px;
   }
 
   .table thead th {
-    padding: 12px 16px;
+    padding: 10px 12px;
     font-size: 10px;
+    white-space: nowrap;
+  }
+
+  .table thead th:first-child {
+    padding-left: 16px;
+  }
+
+  .table thead th:last-child {
+    padding-right: 16px;
+    width: 100px;
   }
 
   .table tbody td {
-    padding: 12px 16px;
+    padding: 12px;
     font-size: 12px;
+  }
+
+  .table tbody td:first-child {
+    padding-left: 16px;
+  }
+
+  .table tbody td:last-child {
+    padding-right: 16px;
+  }
+
+  .linkCell {
+    gap: 10px;
   }
 
   .linkIcon {
@@ -292,16 +342,35 @@
     height: 32px;
   }
 
+  .linkIcon svg {
+    width: 14px;
+    height: 14px;
+  }
+
   .linkName {
     font-size: 12px;
   }
 
   .linkUrl {
+    font-size: 10px;
+  }
+
+  .convBadge {
     font-size: 11px;
+    padding: 2px 6px;
+  }
+
+  .actions {
+    gap: 2px;
   }
 
   .actionButton {
     width: 28px;
     height: 28px;
+  }
+
+  .actionButton svg {
+    width: 14px;
+    height: 14px;
   }
 }
