@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { TrendingUp, TrendingDown, ArrowRight, Wallet, Users, TrendingUp as RateIcon } from 'lucide-react';
-import { useAuth } from '../../hooks';
+import { useDashboard } from '../../hooks/useApi';
 import { formatCurrency, formatNumber } from '../../utils';
 import { useState, useEffect } from 'react';
 import styles from './DashboardOverviewPage.module.css';
 
 export default function DashboardOverviewPage() {
-  const { user } = useAuth();
+  const { data: dashboardData, isLoading, error } = useDashboard();
   const [isDark, setIsDark] = useState(false);
 
   // Detect dark mode
@@ -28,12 +28,50 @@ export default function DashboardOverviewPage() {
     return () => observer.disconnect();
   }, []);
 
-  // Mock data
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className={styles.page}>
+        <div style={{ textAlign: 'center', padding: '60px 20px' }}>
+          <p style={{ fontSize: '16px', color: 'var(--text-secondary)' }}>Loading dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <div className={styles.page}>
+        <div style={{ textAlign: 'center', padding: '60px 20px' }}>
+          <p style={{ fontSize: '16px', color: '#EF4444', marginBottom: '8px' }}>Failed to load dashboard</p>
+          <p style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>
+            {error.response?.data?.message || 'Please try again later'}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Extract data from API response
+  const userName = dashboardData?.data?.Name || 'Creator';
+  const accountBalance = dashboardData?.data?.accountBalance || 0;
+  const transactions = dashboardData?.data?.creatorTransactions || [];
+  const notifications = dashboardData?.data?.notifications || [];
+
+  // Log dashboard data for debugging
+  useEffect(() => {
+    if (dashboardData) {
+      console.log('Dashboard data loaded:', dashboardData);
+    }
+  }, [dashboardData]);
+
+  // Mock data (will be replaced with real data as more endpoints are added)
   const stats = {
-    totalEarned: 127000,
-    thisMonth: 127000,
-    totalSupporters: 17,
-    conversionRate: 0.5
+    totalEarned: accountBalance,
+    thisMonth: accountBalance, // TODO: Calculate from transactions
+    totalSupporters: 17, // TODO: Get from API
+    conversionRate: 0.5 // TODO: Calculate from analytics
   };
 
   const trafficSources = [
@@ -118,7 +156,7 @@ export default function DashboardOverviewPage() {
       {/* Header */}
       <div className={styles.header}>
         <h1 className={styles.greeting}>
-          Good afternoon, Chris 👋
+          Good afternoon, {userName} 👋
         </h1>
         <p className={styles.subtitle}>
           Track your earnings, supporters, and audience growth.
