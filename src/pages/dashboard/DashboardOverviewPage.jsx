@@ -66,39 +66,18 @@ export default function DashboardOverviewPage() {
     }
   }, [dashboardData]);
 
-  // Mock data (will be replaced with real data as more endpoints are added)
+  // Calculate stats from real data
   const stats = {
     totalEarned: accountBalance,
-    thisMonth: accountBalance, // TODO: Calculate from transactions
-    totalSupporters: 17, // TODO: Get from API
-    conversionRate: 0.5 // TODO: Calculate from analytics
+    thisMonth: accountBalance, // TODO: Calculate from transactions when date filtering is available
+    totalSupporters: transactions.length, // TODO: Get unique supporters count
+    conversionRate: 0 // TODO: Calculate from analytics when available
   };
 
-  const trafficSources = [
-    { platform: 'TikTok', amount: 82000, color: '#00D4FF' },
-    { platform: 'YouTube', amount: 32000, color: '#FF0000' },
-    { platform: 'Instagram', amount: 24000, color: '#E4405F' },
-    { platform: 'WhatsApp', amount: 24000, color: '#25D366' },
-    { platform: 'X', amount: 18000, color: '#000000' }
-  ];
-
-  const recentSupport = [
-    { id: 1, name: 'Christobel N.', date: 'Tuesday, yesterday', amount: 500 },
-    { id: 2, name: 'Tunde A.', date: 'Monday, yesterday', amount: 1000 },
-    { id: 3, name: 'Christobel N.', date: 'Monday, yesterday', amount: 1000 },
-    { id: 4, name: 'Christobel N.', date: 'Monday, yesterday', amount: 1000 },
-    { id: 5, name: 'Christobel N.', date: 'Monday, yesterday', amount: 1000 }
-  ];
-
-  const earningsData = [
-    { date: '3 Sept', value: 30 },
-    { date: '4 Sept', value: 45 },
-    { date: '5 Sept', value: 60 },
-    { date: '6 Sept', value: 85 },
-    { date: '7 Sept', value: 100 },
-    { date: '8 Sept', value: 70 },
-    { date: '9 Sept', value: 50 }
-  ];
+  // For now, show empty states for charts and lists
+  const earningsData = [];
+  const trafficSources = [];
+  const recentSupport = transactions.slice(0, 5); // Show latest 5 transactions
 
   const maxValue = 160;
 
@@ -224,40 +203,51 @@ export default function DashboardOverviewPage() {
               <button className={styles.chartTab}>3M</button>
             </div>
           </div>
-          <div className={styles.areaChartContainer}>
-            <div className={styles.chartYAxis}>
-              <span>160k</span>
-              <span>105k</span>
-              <span>75k</span>
-              <span>35k</span>
-              <span>0</span>
-            </div>
-            <div className={styles.areaChartWrapper}>
-              <svg viewBox="0 0 600 200" className={styles.areaChart} preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" style={{ stopColor: '#3B82F6', stopOpacity: 0.3 }} />
-                    <stop offset="100%" style={{ stopColor: '#3B82F6', stopOpacity: 0.05 }} />
-                  </linearGradient>
-                </defs>
-                <path
-                  d={createAreaPath()}
-                  fill="url(#areaGradient)"
-                />
-                <path
-                  d={createLinePath()}
-                  fill="none"
-                  stroke="#3B82F6"
-                  strokeWidth="2"
-                />
-              </svg>
-              <div className={styles.chartXAxis}>
-                {earningsData.map((point, index) => (
-                  <span key={index}>{point.date}</span>
-                ))}
+          {earningsData.length > 0 ? (
+            <div className={styles.areaChartContainer}>
+              <div className={styles.chartYAxis}>
+                <span>160k</span>
+                <span>105k</span>
+                <span>75k</span>
+                <span>35k</span>
+                <span>0</span>
+              </div>
+              <div className={styles.areaChartWrapper}>
+                <svg viewBox="0 0 600 200" className={styles.areaChart} preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" style={{ stopColor: '#3B82F6', stopOpacity: 0.3 }} />
+                      <stop offset="100%" style={{ stopColor: '#3B82F6', stopOpacity: 0.05 }} />
+                    </linearGradient>
+                  </defs>
+                  <path
+                    d={createAreaPath()}
+                    fill="url(#areaGradient)"
+                  />
+                  <path
+                    d={createLinePath()}
+                    fill="none"
+                    stroke="#3B82F6"
+                    strokeWidth="2"
+                  />
+                </svg>
+                <div className={styles.chartXAxis}>
+                  {earningsData.map((point, index) => (
+                    <span key={index}>{point.date}</span>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div style={{ textAlign: 'center', padding: '80px 20px', color: 'var(--text-secondary)' }}>
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ margin: '0 auto 16px', opacity: 0.3 }}>
+                <path d="M3 3v18h18" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <p style={{ fontSize: '14px', margin: 0 }}>No earnings data yet</p>
+              <p style={{ fontSize: '13px', marginTop: '4px', opacity: 0.7 }}>Your revenue chart will appear here once you start receiving support</p>
+            </div>
+          )}
         </div>
 
         {/* Traffic Sources */}
@@ -268,25 +258,36 @@ export default function DashboardOverviewPage() {
               <p className={styles.cardSubtitle}>Revenue by platform</p>
             </div>
           </div>
-          <div className={styles.trafficList}>
-            {trafficSources.map((source, index) => (
-              <div key={index} className={styles.trafficItem}>
-                <div className={styles.trafficInfo}>
-                  <span className={styles.trafficPlatform}>{source.platform}</span>
-                  <span className={styles.trafficAmount}>₦{formatNumber(source.amount)}</span>
+          {trafficSources.length > 0 ? (
+            <div className={styles.trafficList}>
+              {trafficSources.map((source, index) => (
+                <div key={index} className={styles.trafficItem}>
+                  <div className={styles.trafficInfo}>
+                    <span className={styles.trafficPlatform}>{source.platform}</span>
+                    <span className={styles.trafficAmount}>₦{formatNumber(source.amount)}</span>
+                  </div>
+                  <div className={styles.trafficBar}>
+                    <div 
+                      className={styles.trafficBarFill}
+                      style={{ 
+                        width: `${(source.amount / trafficSources[0].amount) * 100}%`,
+                        backgroundColor: source.color
+                      }}
+                    ></div>
+                  </div>
                 </div>
-                <div className={styles.trafficBar}>
-                  <div 
-                    className={styles.trafficBarFill}
-                    style={{ 
-                      width: `${(source.amount / trafficSources[0].amount) * 100}%`,
-                      backgroundColor: source.color
-                    }}
-                  ></div>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--text-secondary)' }}>
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ margin: '0 auto 16px', opacity: 0.3 }}>
+                <circle cx="12" cy="12" r="10" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M12 6v6l4 2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <p style={{ fontSize: '14px', margin: 0 }}>No traffic data available</p>
+              <p style={{ fontSize: '13px', marginTop: '4px', opacity: 0.7 }}>Platform analytics will show here once you receive support</p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -298,20 +299,33 @@ export default function DashboardOverviewPage() {
             View supporters <ArrowRight size={14} />
           </Link>
         </div>
-        <div className={styles.supportList}>
-          {recentSupport.map((supporter) => (
-            <div key={supporter.id} className={styles.supportItem}>
-              <div className={styles.supportAvatar}>
-                <span>C</span>
+        {recentSupport.length > 0 ? (
+          <div className={styles.supportList}>
+            {recentSupport.map((supporter) => (
+              <div key={supporter.id} className={styles.supportItem}>
+                <div className={styles.supportAvatar}>
+                  <span>{supporter.name ? supporter.name[0].toUpperCase() : 'S'}</span>
+                </div>
+                <div className={styles.supportInfo}>
+                  <div className={styles.supportName}>{supporter.name || 'Anonymous'}</div>
+                  <div className={styles.supportDate}>{supporter.date || 'Recently'}</div>
+                </div>
+                <div className={styles.supportAmount}>₦{formatNumber(supporter.amount)}</div>
               </div>
-              <div className={styles.supportInfo}>
-                <div className={styles.supportName}>{supporter.name}</div>
-                <div className={styles.supportDate}>{supporter.date}</div>
-              </div>
-              <div className={styles.supportAmount}>₦{formatNumber(supporter.amount)}</div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--text-secondary)' }}>
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ margin: '0 auto 16px', opacity: 0.3 }}>
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" strokeLinecap="round" strokeLinejoin="round"/>
+              <circle cx="9" cy="7" r="4" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <p style={{ fontSize: '14px', margin: 0 }}>No supporters yet</p>
+            <p style={{ fontSize: '13px', marginTop: '4px', opacity: 0.7 }}>Share your KOPA page to start receiving support</p>
+          </div>
+        )}
       </div>
     </div>
   );
