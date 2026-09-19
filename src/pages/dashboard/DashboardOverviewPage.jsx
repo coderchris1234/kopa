@@ -28,6 +28,13 @@ export default function DashboardOverviewPage() {
     return () => observer.disconnect();
   }, []);
 
+  // Log dashboard data for debugging - MUST be before any returns
+  useEffect(() => {
+    if (dashboardData) {
+      console.log('Dashboard data loaded:', dashboardData);
+    }
+  }, [dashboardData]);
+
   // Show loading state
   if (isLoading) {
     return (
@@ -58,13 +65,6 @@ export default function DashboardOverviewPage() {
   const accountBalance = dashboardData?.data?.accountBalance || 0;
   const transactions = dashboardData?.data?.creatorTransactions || [];
   const notifications = dashboardData?.data?.notifications || [];
-
-  // Log dashboard data for debugging
-  useEffect(() => {
-    if (dashboardData) {
-      console.log('Dashboard data loaded:', dashboardData);
-    }
-  }, [dashboardData]);
 
   // Calculate stats from real data
   const stats = {
