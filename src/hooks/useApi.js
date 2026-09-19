@@ -68,3 +68,20 @@ export const useDashboard = () => {
     staleTime: 5 * 60 * 1000, // Consider data fresh for 5 minutes
   });
 };
+
+// Generate donation links mutation
+export const useGenerateLink = () => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: authAPI.generateLink,
+    onSuccess: () => {
+      // Invalidate payment links or dashboard queries to refresh the data
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
+      queryClient.invalidateQueries({ queryKey: ['paymentLinks'] });
+    },
+    onError: (error) => {
+      console.error('Generate link error:', error);
+    },
+  });
+};

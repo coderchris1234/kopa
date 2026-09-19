@@ -69,4 +69,10 @@ export const authAPI = {
     const response = await api.get('/dashboard');
     return response.data;
   },
+
+  // Generate donation links
+  generateLink: async () => {
+    const response = await api.post('/generateLink');
+    return response.data;
+  },
 };

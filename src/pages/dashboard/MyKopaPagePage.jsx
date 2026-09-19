@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Copy, ExternalLink, Trash2 } from 'lucide-react';
+import { useGenerateLink } from '../../hooks/useApi';
 import { formatCurrency } from '../../utils';
 import styles from './MyKopaPagePage.module.css';
 
 export default function MyKopaPagePage() {
   const [searchTerm, setSearchTerm] = useState('');
+  const { mutate: generateLink, isPending: isGenerating } = useGenerateLink();
 
   // Mock payment links data matching screenshot
   const paymentLinks = [
@@ -63,6 +65,19 @@ export default function MyKopaPagePage() {
     navigator.clipboard.writeText(`https://${url}`);
   };
 
+  const handleGenerateLink = () => {
+    generateLink(undefined, {
+      onSuccess: (data) => {
+        alert('Donation links generated successfully!');
+        console.log('Generated links:', data);
+      },
+      onError: (error) => {
+        const errorMessage = error.response?.data?.message || 'Failed to generate links. Please try again.';
+        alert(errorMessage);
+      }
+    });
+  };
+
   return (
     <div className={styles.page}>
       {/* Header */}
@@ -71,9 +86,13 @@ export default function MyKopaPagePage() {
           <h1 className={styles.title}>Payment Links</h1>
           <p className={styles.subtitle}>Create a unique link for each platform to track where supporters come from</p>
         </div>
-        <button className={styles.createButton}>
+        <button 
+          className={styles.createButton}
+          onClick={handleGenerateLink}
+          disabled={isGenerating}
+        >
           <span className={styles.plusIcon}>+</span>
-          Create payment link
+          {isGenerating ? 'Generating...' : 'Create payment link'}
         </button>
       </div>
 
