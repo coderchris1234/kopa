@@ -1,16 +1,14 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
 import { FcGoogle } from 'react-icons/fc';
 import { HiUserAdd } from 'react-icons/hi';
-import { useAuth } from '../hooks';
+import { useCreateAccount } from '../hooks/useApi';
 import { isValidEmail, validatePassword } from '../utils';
 import styles from './SignupPage.module.css';
 
 export default function SignupPage() {
-  const navigate = useNavigate();
-  const { signup } = useAuth();
-  const [loading, setLoading] = useState(false);
+  const { mutate: createAccount, isPending, error: apiError } = useCreateAccount();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState({});
@@ -18,7 +16,7 @@ export default function SignupPage() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    confirmPassword: ''
+    confirm: ''
   });
 
   const handleChange = (e) => {
@@ -43,8 +41,8 @@ export default function SignupPage() {
       newErrors.password = passwordValidation.message;
     }
 
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
+    if (formData.password !== formData.confirm) {
+      newErrors.confirm = 'Passwords do not match';
     }
 
     setErrors(newErrors);
@@ -55,15 +53,12 @@ export default function SignupPage() {
     e.preventDefault();
     if (!validateForm()) return;
 
-    setLoading(true);
-    try {
-      await signup('', formData.email, formData.password);
-      navigate('/onboarding');
-    } catch (error) {
-      setErrors({ submit: 'Failed to create account. Please try again.' });
-    } finally {
-      setLoading(false);
-    }
+    createAccount(formData, {
+      onError: (error) => {
+        const errorMessage = error.response?.data?.message || 'Failed to create account. Please try again.';
+        setErrors({ submit: errorMessage });
+      }
+    });
   };
 
   const handleGoogleSignup = () => {
@@ -105,7 +100,7 @@ export default function SignupPage() {
                   onChange={handleChange}
                   placeholder="you@example.com"
                   className={styles.input}
-                  disabled={loading}
+                  disabled={isPending}
                   required
                 />
               </div>
@@ -123,7 +118,7 @@ export default function SignupPage() {
                   onChange={handleChange}
                   placeholder="••••••••"
                   className={styles.input}
-                  disabled={loading}
+                  disabled={isPending}
                   required
                 />
                 <button
@@ -139,17 +134,17 @@ export default function SignupPage() {
             </div>
 
             <div className={styles.inputGroup}>
-              <label htmlFor="confirmPassword" className={styles.label}>Confirm Password</label>
+              <label htmlFor="confirm" className={styles.label}>Confirm Password</label>
               <div className={styles.inputWrapper}>
                 <input
-                  id="confirmPassword"
-                  name="confirmPassword"
+                  id="confirm"
+                  name="confirm"
                   type={showConfirmPassword ? 'text' : 'password'}
-                  value={formData.confirmPassword}
+                  value={formData.confirm}
                   onChange={handleChange}
                   placeholder="••••••••"
                   className={styles.input}
-                  disabled={loading}
+                  disabled={isPending}
                   required
                 />
                 <button
@@ -161,7 +156,7 @@ export default function SignupPage() {
                   {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
-              {errors.confirmPassword && <span className={styles.error}>{errors.confirmPassword}</span>}
+              {errors.confirm && <span className={styles.error}>{errors.confirm}</span>}
             </div>
 
             {errors.submit && (
@@ -171,9 +166,9 @@ export default function SignupPage() {
             <button
               type="submit"
               className={styles.submitButton}
-              disabled={loading}
+              disabled={isPending}
             >
-              {loading ? 'Creating account...' : 'Create account'}
+              {isPending ? 'Creating account...' : 'Create account'}
             </button>
 
             <div className={styles.divider}>
@@ -184,7 +179,7 @@ export default function SignupPage() {
               type="button"
               className={styles.googleButton}
               onClick={handleGoogleSignup}
-              disabled={loading}
+              disabled={isPending}
             >
               <FcGoogle size={20} />
               Continue with Google

@@ -1,13 +1,22 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { MdEmail } from 'react-icons/md';
+import { useVerifyAccount } from '../hooks/useApi';
 import styles from './VerifyEmailPage.module.css';
 
 export default function VerifyEmailPage() {
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const { mutate: verifyAccount, isPending } = useVerifyAccount();
   const [error, setError] = useState('');
   const [verificationCode, setVerificationCode] = useState(['', '', '', '', '', '']);
+  const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    // Get the email from localStorage
+    const pendingEmail = localStorage.getItem('pendingEmail');
+    if (pendingEmail) {
+      setEmail(pendingEmail);
+    }
+  }, []);
 
   const handleCodeChange = (index, value) => {
     // Only allow numbers
@@ -48,38 +57,26 @@ export default function VerifyEmailPage() {
 
   const handleVerify = async (e) => {
     e.preventDefault();
-    const code = verificationCode.join('');
+    const otp = verificationCode.join('');
     
-    if (code.length !== 6) {
+    if (otp.length !== 6) {
       setError('Please enter all 6 digits');
       return;
     }
 
-    setLoading(true);
     setError('');
 
-    try {
-      // API call to verify code
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      navigate('/onboarding');
-    } catch (err) {
-      setError('Invalid verification code. Please try again.');
-    } finally {
-      setLoading(false);
-    }
+    verifyAccount({ email, otp }, {
+      onError: (error) => {
+        const errorMessage = error.response?.data?.message || 'Invalid verification code. Please try again.';
+        setError(errorMessage);
+      }
+    });
   };
 
   const handleResend = async () => {
-    setLoading(true);
-    try {
-      // API call to resend code
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      alert('Verification code sent!');
-    } catch (err) {
-      setError('Failed to resend code. Please try again.');
-    } finally {
-      setLoading(false);
-    }
+    // TODO: Implement resend OTP API call
+    alert('Resend OTP functionality will be implemented');
   };
 
   return (
@@ -102,7 +99,7 @@ export default function VerifyEmailPage() {
             </div>
             <h1 className={styles.title}>Verify your email</h1>
             <p className={styles.subtitle}>
-              A verification code has been sent to your email address. Please enter it to continue.
+              A verification code has been sent to <strong>{email}</strong>. Please enter it to continue.
             </p>
           </div>
 
@@ -120,7 +117,7 @@ export default function VerifyEmailPage() {
                   onKeyDown={(e) => handleKeyDown(index, e)}
                   onPaste={handlePaste}
                   className={styles.codeInput}
-                  disabled={loading}
+                  disabled={isPending}
                   required
                 />
               ))}
@@ -133,9 +130,9 @@ export default function VerifyEmailPage() {
             <button
               type="submit"
               className={styles.submitButton}
-              disabled={loading || verificationCode.some(d => !d)}
+              disabled={isPending || verificationCode.some(d => !d)}
             >
-              {loading ? 'Verifying...' : 'Verify'}
+              {isPending ? 'Verifying...' : 'Verify'}
             </button>
           </form>
 
@@ -145,7 +142,7 @@ export default function VerifyEmailPage() {
               type="button"
               onClick={handleResend}
               className={styles.link}
-              disabled={loading}
+              disabled={isPending}
             >
               Resend
             </button>

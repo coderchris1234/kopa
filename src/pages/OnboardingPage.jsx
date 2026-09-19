@@ -1,24 +1,24 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { IoCamera } from 'react-icons/io5';
 import { FaInstagram, FaTiktok, FaYoutube, FaWhatsapp } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-import { useAuth } from '../hooks';
+import { useCompleteOnboarding } from '../hooks/useApi';
 import { validateUsername } from '../utils';
 import styles from './OnboardingPage.module.css';
 
 export default function OnboardingPage() {
-  const navigate = useNavigate();
-  const { user, updateUser } = useAuth();
+  const { mutate: completeOnboarding, isPending } = useCompleteOnboarding();
   const [currentStep, setCurrentStep] = useState(1);
   const [errors, setErrors] = useState({});
   const [photoPreview, setPhotoPreview] = useState(null);
 
   const [profile, setProfile] = useState({
-    displayName: '',
-    username: '',
+    fullName: '',
+    userName: '',
+    accountName: '',
     bio: '',
-    category: 'Photography'
+    category: 'Photography',
+    phoneNumber: ''
   });
 
   const [socialLinks, setSocialLinks] = useState({
@@ -70,13 +70,13 @@ export default function OnboardingPage() {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!profile.displayName.trim()) {
-      newErrors.displayName = 'Display name is required';
+    if (!profile.fullName.trim()) {
+      newErrors.fullName = 'Display name is required';
     }
 
-    const usernameValidation = validateUsername(profile.username);
+    const usernameValidation = validateUsername(profile.userName);
     if (!usernameValidation.isValid) {
-      newErrors.username = usernameValidation.message;
+      newErrors.userName = usernameValidation.message;
     }
 
     setErrors(newErrors);
@@ -89,13 +89,13 @@ export default function OnboardingPage() {
     if (currentStep < 4) {
       setCurrentStep(currentStep + 1);
     } else {
-      // Final step - update user and navigate
-      updateUser({
-        ...profile,
-        socialLinks,
-        onboardingComplete: true
+      // Final step - submit onboarding
+      completeOnboarding(profile, {
+        onError: (error) => {
+          const errorMessage = error.response?.data?.message || 'Failed to complete onboarding. Please try again.';
+          setErrors({ submit: errorMessage });
+        }
       });
-      navigate('/dashboard');
     }
   };
 
@@ -180,34 +180,52 @@ export default function OnboardingPage() {
 
                 {/* Display Name */}
                 <div className={styles.inputGroup}>
-                  <label htmlFor="displayName" className={styles.label}>Display name</label>
+                  <label htmlFor="fullName" className={styles.label}>Display name</label>
                   <input
-                    id="displayName"
-                    name="displayName"
+                    id="fullName"
+                    name="fullName"
                     type="text"
-                    value={profile.displayName}
+                    value={profile.fullName}
                     onChange={handleChange}
                     placeholder="Chris The Photographer"
                     className={styles.input}
+                    disabled={isPending}
                     required
                   />
-                  {errors.displayName && <span className={styles.error}>{errors.displayName}</span>}
+                  {errors.fullName && <span className={styles.error}>{errors.fullName}</span>}
                 </div>
 
                 {/* Username */}
                 <div className={styles.inputGroup}>
-                  <label htmlFor="username" className={styles.label}>Username</label>
+                  <label htmlFor="userName" className={styles.label}>Username</label>
                   <input
-                    id="username"
-                    name="username"
+                    id="userName"
+                    name="userName"
                     type="text"
-                    value={profile.username}
+                    value={profile.userName}
                     onChange={handleChange}
-                    placeholder="kopa.africa/@christobel"
+                    placeholder="christobel"
                     className={styles.input}
+                    disabled={isPending}
                     required
                   />
-                  {errors.username && <span className={styles.error}>{errors.username}</span>}
+                  {errors.userName && <span className={styles.error}>{errors.userName}</span>}
+                </div>
+
+                {/* Account Name */}
+                <div className={styles.inputGroup}>
+                  <label htmlFor="accountName" className={styles.label}>Account Name</label>
+                  <input
+                    id="accountName"
+                    name="accountName"
+                    type="text"
+                    value={profile.accountName}
+                    onChange={handleChange}
+                    placeholder="Chris's Store"
+                    className={styles.input}
+                    disabled={isPending}
+                    required
+                  />
                 </div>
 
                 {/* Bio */}
@@ -220,19 +238,37 @@ export default function OnboardingPage() {
                     onChange={handleChange}
                     placeholder="Tell supporters what you create"
                     className={styles.textarea}
+                    disabled={isPending}
                     rows={3}
+                  />
+                </div>
+
+                {/* Phone Number */}
+                <div className={styles.inputGroup}>
+                  <label htmlFor="phoneNumber" className={styles.label}>Phone Number</label>
+                  <input
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    type="tel"
+                    value={profile.phoneNumber}
+                    onChange={handleChange}
+                    placeholder="+2348012345678"
+                    className={styles.input}
+                    disabled={isPending}
+                    required
                   />
                 </div>
 
                 {/* Category */}
                 <div className={styles.inputGroup}>
-                  <label htmlFor="category" className={styles.label}>Username</label>
+                  <label htmlFor="category" className={styles.label}>Category</label>
                   <select
                     id="category"
                     name="category"
                     value={profile.category}
                     onChange={handleChange}
                     className={styles.select}
+                    disabled={isPending}
                   >
                     <option value="Photography">Photography</option>
                     <option value="Music">Music</option>
@@ -240,13 +276,18 @@ export default function OnboardingPage() {
                     <option value="Writing">Writing</option>
                     <option value="Video">Video</option>
                     <option value="Podcasting">Podcasting</option>
+                    <option value="Fashion">Fashion</option>
                     <option value="Other">Other</option>
                   </select>
                 </div>
 
+                {errors.submit && (
+                  <div className={styles.submitError}>{errors.submit}</div>
+                )}
+
                 {/* Continue Button */}
-                <button type="submit" className={styles.continueButton}>
-                  Continue →
+                <button type="submit" className={styles.continueButton} disabled={isPending}>
+                  {isPending ? 'Saving...' : 'Continue →'}
                 </button>
               </form>
             </>
@@ -484,27 +525,25 @@ export default function OnboardingPage() {
 
                 <div className={styles.completionButtons}>
                   <button 
-                    onClick={() => {
-                      updateUser({
-                        ...profile,
-                        socialLinks,
-                        supportTiers,
-                        allowCustomAmount,
-                        onboardingComplete: true
-                      });
-                      navigate('/dashboard');
-                    }} 
+                    onClick={() => completeOnboarding(profile, {
+                      onError: (error) => {
+                        const errorMessage = error.response?.data?.message || 'Failed to complete onboarding. Please try again.';
+                        alert(errorMessage);
+                      }
+                    })} 
                     className={styles.goToDashboardButton}
+                    disabled={isPending}
                   >
-                    Go to dashboard
+                    {isPending ? 'Saving...' : 'Go to dashboard'}
                   </button>
                   <button 
                     onClick={() => {
-                      const link = `kopa.africa/@${profile.username || 'yourname'}`;
+                      const link = `kopa.africa/@${profile.userName || 'yourname'}`;
                       navigator.clipboard.writeText(link);
                       alert('Link copied to clipboard!');
                     }} 
                     className={styles.sharePageButton}
+                    disabled={isPending}
                   >
                     Share my page
                   </button>
